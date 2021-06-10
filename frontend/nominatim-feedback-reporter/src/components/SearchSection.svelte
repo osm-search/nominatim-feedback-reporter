@@ -169,7 +169,7 @@
     id="structured"
     role="tabpanel"
   >
-    <UrlSubmitForm page="search">
+    <UrlSubmitForm page="wronginfosearch">
       <div class="col-auto">
         <input
           name="street"

@@ -76,6 +76,9 @@
         <a class="btn btn-primary" href={sMoreURL}> Search for more results </a>
       </div>
     {/if}
+    <div class="d-flex justify-content-center mt-5">
+      <button class="btn btn-primary">Proceed With selected option</button>
+    </div>
   </div>
 {:else if aSearchResults}
   {#if reverse_search}

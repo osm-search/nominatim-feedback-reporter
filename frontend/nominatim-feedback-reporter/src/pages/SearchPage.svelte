@@ -78,9 +78,6 @@
   </div>
   <div id="map-wrapper">
     <Map {current_result} display_minimap={true} />
-    <div class="d-flex justify-content-center mt-5">
-      <button class="btn btn-primary">Proceed</button>
-    </div>
   </div>
 </div>
 
