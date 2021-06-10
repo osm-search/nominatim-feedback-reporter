@@ -1,5 +1,5 @@
 <script>
-  import { refresh_page } from '../lib/stores.js';
+  import { refresh_page } from "../lib/stores.js";
 
   export let page;
 
@@ -7,10 +7,16 @@
     var params = new URLSearchParams();
 
     Array.prototype.slice.call(form.elements).forEach(function (field) {
-      if (!field.name || field.disabled || ['submit', 'button'].indexOf(field.type) > -1) return;
+      if (
+        !field.name ||
+        field.disabled ||
+        ["submit", "button"].indexOf(field.type) > -1
+      )
+        return;
 
-      if (['checkbox', 'radio'].indexOf(field.type) > -1 && !field.checked) return;
-      if (typeof field.value === 'undefined' || field.value === '') return;
+      if (["checkbox", "radio"].indexOf(field.type) > -1 && !field.checked)
+        return;
+      if (typeof field.value === "undefined" || field.value === "") return;
 
       params.set(field.name, field.value);
     });
@@ -21,7 +27,7 @@
   // https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation
   // doesn't support hidden fields, so we check those in an extra step
   function validate_field(field) {
-    if (field.type === 'hidden') {
+    if (field.type === "hidden") {
       if (field.value.length) {
         if (field.pattern && !field.value.match(field.pattern)) return false;
       }
@@ -36,7 +42,7 @@
 
     Array.prototype.slice.call(form.elements).forEach(function (field) {
       if (!validate_field(field)) {
-        alert('Invalid input in ' + field.name);
+        alert("Invalid input in " + field.name);
         allow_submit = false;
       }
     });
@@ -45,8 +51,14 @@
   }
 </script>
 
-<form on:submit|preventDefault={handle_submit} class="form-inline" role="search" accept-charset="UTF-8" action="">
+<form
+  on:submit|preventDefault={handle_submit}
+  class="form-inline"
+  role="search"
+  accept-charset="UTF-8"
+  action=""
+>
   <div class="row g-2">
-    <slot></slot>
+    <slot />
   </div>
 </form>

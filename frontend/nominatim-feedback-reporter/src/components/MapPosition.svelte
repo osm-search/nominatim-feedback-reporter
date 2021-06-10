@@ -1,6 +1,5 @@
 <script>
-
-  import { map_store } from '../lib/stores.js';
+  import { map_store } from "../lib/stores.js";
   let last_click_latlng;
 
   let map_center;
@@ -14,7 +13,7 @@
     var zoom = map.getZoom();
     var lat = map.getCenter().lat.toFixed(5);
     var lng = map.getCenter().lng.toFixed(5);
-    return 'https://openstreetmap.org/#map=' + zoom + '/' + lat + '/' + lng;
+    return "https://openstreetmap.org/#map=" + zoom + "/" + lat + "/" + lng;
   }
 
   function map_viewbox_as_string(map) {
@@ -22,7 +21,8 @@
     var west = bounds.getWest();
     var east = bounds.getEast();
 
-    if ((east - west) >= 360) { // covers more than whole planet
+    if (east - west >= 360) {
+      // covers more than whole planet
       west = map.getCenter().lng - 179.999;
       east = map.getCenter().lng + 179.999;
     }
@@ -33,70 +33,76 @@
       west.toFixed(5), // left
       bounds.getNorth().toFixed(5), // top
       east.toFixed(5), // right
-      bounds.getSouth().toFixed(5) // bottom
-    ].join(',');
+      bounds.getSouth().toFixed(5), // bottom
+    ].join(",");
   }
 
   function display_map_position(map, mouse_lat_lng) {
-    map_center = map.getCenter().lat.toFixed(5) + ',' + map.getCenter().lng.toFixed(5);
+    map_center =
+      map.getCenter().lat.toFixed(5) + "," + map.getCenter().lng.toFixed(5);
     view_on_osm_link = map_link_to_osm(map);
     map_zoom = map.getZoom();
     map_viewbox = map_viewbox_as_string(map);
-    mouse_position = '-';
+    mouse_position = "-";
     if (mouse_lat_lng) {
-      mouse_position = [mouse_lat_lng.lat.toFixed(5), mouse_lat_lng.lng.toFixed(5)].join(',');
+      mouse_position = [
+        mouse_lat_lng.lat.toFixed(5),
+        mouse_lat_lng.lng.toFixed(5),
+      ].join(",");
     }
     if (last_click_latlng) {
-      last_click = [last_click_latlng.lat.toFixed(5), last_click_latlng.lng.toFixed(5)].join(',');
+      last_click = [
+        last_click_latlng.lat.toFixed(5),
+        last_click_latlng.lng.toFixed(5),
+      ].join(",");
     }
   }
 
-
-  map_store.subscribe(map => {
+  map_store.subscribe((map) => {
     if (!map) return;
 
-    map.on('move', function () {
+    map.on("move", function () {
       display_map_position(map);
       // update_viewbox_field();
     });
 
-    map.on('mousemove', function (e) {
+    map.on("mousemove", function (e) {
       display_map_position(map, e.latlng);
     });
 
-    map.on('click', function (e) {
+    map.on("click", function (e) {
       last_click_latlng = e.latlng;
       display_map_position(map);
     });
 
-    map.on('load', function () {
+    map.on("load", function () {
       display_map_position(map);
     });
   });
 
   function handleHideClick() {
-    document.getElementById('map-position').style.display = 'none';
-    document.getElementById('show-map-position').style.display = 'block';
+    document.getElementById("map-position").style.display = "none";
+    document.getElementById("show-map-position").style.display = "block";
   }
-
 </script>
 
 <div id="map-position">
   <div id="map-position-inner">
     map center: {map_center}
-    <a target="_blank" href="{view_on_osm_link}">view on osm.org</a>
-    <br>
+    <a target="_blank" href={view_on_osm_link}>view on osm.org</a>
+    <br />
     map zoom: {map_zoom}
-    <br>
+    <br />
     viewbox: {map_viewbox}
-    <br>
+    <br />
     last click: {last_click}
-    <br>
+    <br />
     mouse position: {mouse_position}
   </div>
-  <div id="map-position-close"><a href="#hide" on:click={handleHideClick}>hide</a></div>
+  <div id="map-position-close">
+    <a href="#hide" on:click={handleHideClick}>hide</a>
+  </div>
 </div>
-
 
 <style>
   #map-position {
@@ -114,9 +120,6 @@
   #map-position-close {
     text-align: right;
   }
-
-  
-  
 
   @media (max-width: 768px) {
     #map-position {

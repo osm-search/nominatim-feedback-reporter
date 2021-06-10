@@ -1,8 +1,8 @@
 <script>
-  import PageLink from './PageLink.svelte';
-  import Error from './Error.svelte';
+  import PageLink from "./PageLink.svelte";
+  import Error from "./Error.svelte";
 
-  import { page } from '../lib/stores.js';
+  import { page } from "../lib/stores.js";
 
   $: view = $page.tab;
   $: page_title = Nominatim_Config.Page_Title;
@@ -19,6 +19,49 @@
   //   });
   // });
 </script>
+
+<header class="container-fluid">
+  <nav class="navbar navbar-expand-sm navbar-light">
+    <div class="container-fluid">
+      <!-- Brand -->
+      <div class="navbar-brand">
+        <PageLink page="welcome">
+          <img alt="logo" id="theme-logo" src="theme/logo.png" />
+          <h1>{page_title}</h1>
+        </PageLink>
+      </div>
+      <!-- Toggler (hamburger button) -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon" />
+      </button>
+      <!-- Right aligned links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <PageLink
+            page="about"
+            extra_classes="nav-link {view === 'about' ? 'active' : ''}"
+            >About & Help</PageLink
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<section class="page-title-section">
+  <h2>{view}</h2>
+</section>
+<section class="search-section mb-3">
+  <slot />
+</section>
+<Error />
 
 <style>
   .navbar-brand :global(a:hover) {
@@ -59,34 +102,3 @@
     border-bottom: 2px solid #ddd;
   }
 </style>
-
-<header class="container-fluid">
-  <nav class="navbar navbar-expand-sm navbar-light">
-    <div class="container-fluid">
-      <!-- Brand -->
-      <div class="navbar-brand">
-        <PageLink page="welcome">
-          <img alt="logo" id="theme-logo" src="theme/logo.png" />
-          <h1>{page_title}</h1>
-        </PageLink>
-      </div>
-      <!-- Toggler (hamburger button) -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- Right aligned links -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <PageLink page="about" extra_classes="nav-link {view === 'about' ? 'active' : ''}">About & Help</PageLink>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</header>
-<section class="page-title-section">
-  <h2>{view}</h2>
-</section>
-<section class="search-section mb-3">
-  <slot/>
-</section>
-<Error/>

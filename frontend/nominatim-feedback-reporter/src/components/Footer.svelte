@@ -1,3 +1,10 @@
+<footer>
+  <p class="disclaimer">Addresses and postcodes are approximate</p>
+  <p class="copyright">
+    &copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors
+  </p>
+</footer>
+
 <style>
   footer {
     clear: both;
@@ -8,12 +15,3 @@
     margin: 1em;
   }
 </style>
-
-<footer>
-  <p class="disclaimer">
-    Addresses and postcodes are approximate
-  </p>
-  <p class="copyright">
-    &copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors
-  </p>
-</footer>

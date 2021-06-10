@@ -1,9 +1,9 @@
 <script>
-  import { results_store } from '../lib/stores.js';
-  import { formatLabel } from '../lib/helpers.js';
+  import { results_store } from "../lib/stores.js";
+  import { formatLabel } from "../lib/helpers.js";
 
-  import Welcome from './Welcome.svelte';
-  import MapIcon from './MapIcon.svelte';
+  import Welcome from "./Welcome.svelte";
+  import MapIcon from "./MapIcon.svelte";
 
   export let reverse_search = false;
   export let current_result = null;
@@ -12,12 +12,13 @@
   let iHighlightNum;
   let sMoreURL;
 
-  results_store.subscribe(data => {
-    if (!data) { return; }
+  results_store.subscribe((data) => {
+    if (!data) {
+      return;
+    }
     aSearchResults = data;
     iHighlightNum = 0;
     current_result = aSearchResults[0];
-
 
     let search_params = new URLSearchParams(window.location.search);
 
@@ -27,20 +28,20 @@
     // one or two results when it believes the result to be a good enough match.
     // if (aResults.length >= 10) {
     var aExcludePlaceIds = [];
-    if (search_params.has('exclude_place_ids')) {
-      aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
+    if (search_params.has("exclude_place_ids")) {
+      aExcludePlaceIds = search_params.get("exclude_place_ids").split(",");
     }
     for (var i = 0; i < aResults.length; i += 1) {
       aExcludePlaceIds.push(aResults[i].place_id);
     }
     var parsed_url = new URLSearchParams(window.location.search);
-    parsed_url.set('exclude_place_ids', aExcludePlaceIds.join(','));
-    sMoreURL = '?' + parsed_url.toString();
+    parsed_url.set("exclude_place_ids", aExcludePlaceIds.join(","));
+    sMoreURL = "?" + parsed_url.toString();
   });
 
   function handleClick(e) {
     let result_el = e.target;
-    if (!result_el.className.match('result')) {
+    if (!result_el.className.match("result")) {
       result_el = result_el.parentElement;
     }
     let pos = Number(result_el.dataset.position);
@@ -48,14 +49,17 @@
     current_result = aSearchResults[pos];
     iHighlightNum = pos;
   }
-
 </script>
 
 {#if aSearchResults && aSearchResults.length > 0}
   <div id="searchresults">
-
     {#each aSearchResults as aResult, iResNum}
-      <div class="result" class:highlight={iResNum === iHighlightNum} data-position="{iResNum}" on:click|stopPropagation={handleClick}>
+      <div
+        class="result"
+        class:highlight={iResNum === iHighlightNum}
+        data-position={iResNum}
+        on:click|stopPropagation={handleClick}
+      >
         <div style="float:right">
           <MapIcon aPlace={aResult} />
         </div>
@@ -65,42 +69,42 @@
       </div>
     {/each}
     <div class="noneofabove">
-      <a class='btn btn-outline-secondary btn-sm'>None of above</a>
+      <a class="btn btn-outline-secondary btn-sm">None of above</a>
     </div>
     {#if sMoreURL && !reverse_search}
       <div class="more">
-        <a class="btn btn-primary" href="{sMoreURL}">
-          Search for more results
-        </a>
+        <a class="btn btn-primary" href={sMoreURL}> Search for more results </a>
       </div>
     {/if}
   </div>
 {:else if aSearchResults}
   {#if reverse_search}
-    <div id="intro" class="sidebar">Search for coordinates or click anywhere on the map.</div>
+    <div id="intro" class="sidebar">
+      Search for coordinates or click anywhere on the map.
+    </div>
   {:else}
     <div class="noresults">No search results found</div>
   {/if}
 {:else}
-  <Welcome/>
+  <Welcome />
 {/if}
 
 <style>
   .result {
     font-size: 0.8em;
     margin: 5px;
-    margin-top:0px;
+    margin-top: 0px;
     padding: 4px 8px;
     border-radius: 2px;
-    background:#F0F7FF;
-    border: 2px solid #D7E7FF;
-    cursor:pointer;
+    background: #f0f7ff;
+    border: 2px solid #d7e7ff;
+    cursor: pointer;
     min-height: 5em;
   }
 
   .result.highlight {
-    background-color: #D9E7F7;
-    border-color: #9DB9E4;
+    background-color: #d9e7f7;
+    border-color: #9db9e4;
   }
   .result.highlight :global(a) {
     margin: 10px auto;
@@ -109,7 +113,7 @@
     padding: 1px;
     background-color: white;
   }
-  .result .type{
+  .result .type {
     color: gray;
     font-size: 0.8em;
   }
@@ -118,16 +122,16 @@
   }
 
   .result .coords {
-    display: none;  
+    display: none;
   }
 
-  .noresults{
+  .noresults {
     text-align: center;
     padding: 1em;
   }
 
-  .more{
-    text-align:center;
+  .more {
+    text-align: center;
     margin-top: 1em;
   }
 
@@ -137,12 +141,12 @@
   .noneofabove {
     font-size: 0.8em;
     margin: 5px;
-    margin-top:0px;
+    margin-top: 0px;
     padding: 4px 8px;
     border-radius: 2px;
-    background:#F0F7FF;
-    border: 2px solid #D7E7FF;
-    cursor:pointer;
+    background: #f0f7ff;
+    border: 2px solid #d7e7ff;
+    cursor: pointer;
     min-height: 5em;
   }
   .noneofabove a {
