@@ -5,17 +5,22 @@
 
   onMount(() => {
     fetch_content_into_element(
-      'theme/about-help.html',
-      document.getElementById('about-help')
+      'theme/thank-you.html',
+      document.getElementById('thank-you')
     );
   });
 </script>
 
 <Header />
-<div id="about-help" class="container" />
+<div class="container-fluid">
+  <div class="row mb-4 mt-4">
+    <h2>Thank You for providing your valuable feedback</h2>
+  </div>
+</div>
+<div id="thank-you" class="container" />
 
 <style>
-  #about-help {
+  #thank-you {
     max-width: 800px;
     padding: 4em;
   }

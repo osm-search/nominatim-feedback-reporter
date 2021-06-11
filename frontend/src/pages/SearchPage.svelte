@@ -1,11 +1,11 @@
 <script>
-  import { page, results_store } from "../lib/stores.js";
-  import { fetch_from_api, update_html_title } from "../lib/api_utils.js";
+  import { page, results_store } from '../lib/stores.js';
+  import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
 
-  import Header from "../components/Header.svelte";
-  import SearchSection from "../components/SearchSection.svelte";
-  import ResultsList from "../components/ResultsList.svelte";
-  import Map from "../components/Map.svelte";
+  import Header from '../components/Header.svelte';
+  import SearchSection from '../components/SearchSection.svelte';
+  import ResultsList from '../components/ResultsList.svelte';
+  import Map from '../components/Map.svelte';
 
   let api_request_params;
   let bStructuredSearch;
@@ -15,44 +15,43 @@
     update_html_title();
 
     api_request_params = {
-      q: search_params.get("q"),
-      street: search_params.get("street"),
-      city: search_params.get("city"),
-      county: search_params.get("county"),
-      state: search_params.get("state"),
-      country: search_params.get("country"),
-      postalcode: search_params.get("postalcode"),
+      q: search_params.get('q'),
+      street: search_params.get('street'),
+      city: search_params.get('city'),
+      county: search_params.get('county'),
+      state: search_params.get('state'),
+      country: search_params.get('country'),
+      postalcode: search_params.get('postalcode'),
       polygon_geojson: Nominatim_Config.Search_AreaPolygons ? 1 : 0,
-      viewbox: search_params.get("viewbox"),
-      bounded: search_params.get("bounded"),
-      dedupe: search_params.get("dedupe"),
-      "accept-language": search_params.get("accept-language"),
-      countrycodes: search_params.get("countrycodes"),
-      limit: search_params.get("limit"),
-      polygon_threshold: search_params.get("polygon_threshold"),
-      exclude_place_ids: search_params.get("exclude_place_ids"),
-      format: "jsonv2",
+      viewbox: search_params.get('viewbox'),
+      bounded: search_params.get('bounded'),
+      dedupe: search_params.get('dedupe'),
+      'accept-language': search_params.get('accept-language'),
+      countrycodes: search_params.get('countrycodes'),
+      limit: search_params.get('limit'),
+      polygon_threshold: search_params.get('polygon_threshold'),
+      exclude_place_ids: search_params.get('exclude_place_ids'),
+      format: 'jsonv2'
     };
 
-    let anyStructuredFieldsSet =
-      api_request_params.street ||
-      api_request_params.city ||
-      api_request_params.county ||
-      api_request_params.state ||
-      api_request_params.country ||
-      api_request_params.postalcode;
+    let anyStructuredFieldsSet = api_request_params.street
+    || api_request_params.city
+    || api_request_params.county
+    || api_request_params.state
+    || api_request_params.country
+    || api_request_params.postalcode;
 
     if (api_request_params.q || anyStructuredFieldsSet) {
-      fetch_from_api("search", api_request_params, function (data) {
+      fetch_from_api('search', api_request_params, function (data) {
         results_store.set(data);
 
-        update_html_title("Result for " + api_request_params.q);
+        update_html_title('Result for ' + api_request_params.q);
 
         if (anyStructuredFieldsSet) {
           document.querySelector(".nav-tabs a[href='#structured']").click();
-          document.querySelector("input[name=street]").focus();
+          document.querySelector('input[name=street]').focus();
         } else {
-          document.querySelector("input[name=q]").focus();
+          document.querySelector('input[name=q]').focus();
         }
       });
     } else {
@@ -62,7 +61,7 @@
 
   $: {
     let pageinfo = $page;
-    if (pageinfo.tab === "wronginfosearch") {
+    if (pageinfo.tab === 'wronginfosearch') {
       loaddata(pageinfo.params);
     }
   }

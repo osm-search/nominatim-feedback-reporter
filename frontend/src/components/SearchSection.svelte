@@ -1,8 +1,8 @@
 <script>
-  import UrlSubmitForm from "../components/UrlSubmitForm.svelte";
+  import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
 
-  import { map_store } from "../lib/stores.js";
-  import { get } from "svelte/store";
+  import { map_store } from '../lib/stores.js';
+  import { get } from 'svelte/store';
 
   export let bStructuredSearch = false;
   export let api_request_params = {};
@@ -27,16 +27,16 @@
       west.toFixed(5), // left
       bounds.getNorth().toFixed(5), // top
       east.toFixed(5), // right
-      bounds.getSouth().toFixed(5), // bottom
-    ].join(",");
+      bounds.getSouth().toFixed(5) // bottom
+    ].join(',');
   }
 
   function set_viewbox(map) {
-    let use_viewbox = document.getElementById("use_viewbox");
+    let use_viewbox = document.getElementById('use_viewbox');
     if (use_viewbox && use_viewbox.checked) {
       sViewBox = map_viewbox_as_string(map);
     } else {
-      sViewBox = "";
+      sViewBox = '';
     }
   }
 
@@ -51,12 +51,12 @@
       return;
     }
 
-    map.on("move", function () {
+    map.on('move', function () {
       set_viewbox(map);
       update_reverse_link(map);
     });
 
-    map.on("load", function () {
+    map.on('load', function () {
       set_viewbox(map);
       update_reverse_link(map);
     });
@@ -70,20 +70,20 @@
   }
 
   function set_bounded(e) {
-    document.querySelector("input[name=bounded]").value = e.target.checked
+    document.querySelector('input[name=bounded]').value = e.target.checked
       ? 1
-      : "";
+      : '';
   }
 
   function set_dedupe(e) {
-    document.querySelector("input[name=dedupe]").value = e.target.checked
+    document.querySelector('input[name=dedupe]').value = e.target.checked
       ? 1
-      : "";
+      : '';
   }
 
   function set_api_param(e) {
     document.querySelector(
-      "input[name=" + e.target.dataset.apiParam + "]"
+      'input[name=' + e.target.dataset.apiParam + ']'
     ).value = e.target.value;
   }
 </script>
@@ -122,43 +122,43 @@
           type="text"
           class="form-control form-control-sm"
           placeholder="Search"
-          value={api_request_params.q || ""}
+          value={api_request_params.q || ''}
         />
       </div>
       <div class="col-auto">
         <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button
         >
-        <input type="hidden" name="viewbox" value={sViewBox || ""} />
+        <input type="hidden" name="viewbox" value={sViewBox || ''} />
         <input
           type="hidden"
           name="dedupe"
-          value={!api_request_params.dedupe ? "" : 1}
+          value={!api_request_params.dedupe ? '' : 1}
         />
         <input
           type="hidden"
           name="bounded"
-          value={api_request_params.bounded ? 1 : ""}
+          value={api_request_params.bounded ? 1 : ''}
         />
         <input
           type="hidden"
           name="accept-language"
-          value={api_request_params["accept-language"] || ""}
+          value={api_request_params['accept-language'] || ''}
         />
         <input
           type="hidden"
           name="countrycodes"
-          value={api_request_params.countrycodes || ""}
+          value={api_request_params.countrycodes || ''}
           pattern="^[a-zA-Z]{'{2}'}(,[a-zA-Z]{'{2}'})*$"
         />
         <input
           type="hidden"
           name="limit"
-          value={api_request_params.limit || ""}
+          value={api_request_params.limit || ''}
         />
         <input
           type="hidden"
           name="polygon_threshold"
-          value={api_request_params.polygon_threshold || ""}
+          value={api_request_params.polygon_threshold || ''}
         />
       </div>
     </UrlSubmitForm>
@@ -176,7 +176,7 @@
           type="text"
           class="form-control form-control-sm me-1"
           placeholder="House number/Street"
-          value={api_request_params.street || ""}
+          value={api_request_params.street || ''}
         />
       </div>
       <div class="col-auto">
@@ -185,7 +185,7 @@
           type="text"
           class="form-control form-control-sm me-1"
           placeholder="City"
-          value={api_request_params.city || ""}
+          value={api_request_params.city || ''}
         />
       </div>
       <div class="col-auto">
@@ -195,7 +195,7 @@
           type="text"
           class="form-control form-control-sm me-1"
           placeholder="County"
-          value={api_request_params.county || ""}
+          value={api_request_params.county || ''}
         />
       </div>
       <div class="col-auto">
@@ -204,7 +204,7 @@
           type="text"
           class="form-control form-control-sm me-1"
           placeholder="State"
-          value={api_request_params.state || ""}
+          value={api_request_params.state || ''}
         />
       </div>
       <div class="col-auto">
@@ -213,7 +213,7 @@
           type="text"
           class="form-control form-control-sm me-1"
           placeholder="Country"
-          value={api_request_params.country || ""}
+          value={api_request_params.country || ''}
         />
       </div>
       <div class="col-auto">
@@ -222,42 +222,42 @@
           type="text"
           class="form-control form-control-sm me-1"
           placeholder="Postal Code"
-          value={api_request_params.postalcode || ""}
+          value={api_request_params.postalcode || ''}
         />
       </div>
       <div class="col-auto">
         <button type="submit" class="btn btn-primary btn-sm">Search</button>
-        <input type="hidden" name="viewbox" value={sViewBox || ""} />
+        <input type="hidden" name="viewbox" value={sViewBox || ''} />
         <input
           type="hidden"
           name="dedupe"
-          value={!api_request_params.dedupe ? "" : 1}
+          value={!api_request_params.dedupe ? '' : 1}
         />
         <input
           type="hidden"
           name="bounded"
-          value={api_request_params.bounded ? 1 : ""}
+          value={api_request_params.bounded ? 1 : ''}
         />
         <input
           type="hidden"
           name="accept-language"
-          value={api_request_params["accept-language"] || ""}
+          value={api_request_params['accept-language'] || ''}
         />
         <input
           type="hidden"
           name="countrycodes"
-          value={api_request_params.countrycodes || ""}
+          value={api_request_params.countrycodes || ''}
           pattern="^[a-zA-Z]{'{2}'}(,[a-zA-Z]{'{2}'})*$"
         />
         <input
           type="hidden"
           name="limit"
-          value={api_request_params.limit || ""}
+          value={api_request_params.limit || ''}
         />
         <input
           type="hidden"
           name="polygon_threshold"
-          value={api_request_params.polygon_threshold || ""}
+          value={api_request_params.polygon_threshold || ''}
         />
       </div>
     </UrlSubmitForm>
@@ -321,7 +321,7 @@
         id="option_limit"
         min="1"
         max="50"
-        value={api_request_params.limit || ""}
+        value={api_request_params.limit || ''}
         on:change={set_api_param}
       />
     </li>
@@ -336,7 +336,7 @@
         min="0.0"
         max="1.0"
         step="0.001"
-        value={api_request_params.polygon_threshold || ""}
+        value={api_request_params.polygon_threshold || ''}
         on:change={set_api_param}
       />
     </li>
@@ -350,7 +350,7 @@
         data-api-param="accept-language"
         id="accept_lang"
         size="15"
-        value={api_request_params["accept-language"] || ""}
+        value={api_request_params['accept-language'] || ''}
         on:change={set_api_param}
       />
     </li>
@@ -364,7 +364,7 @@
         data-api-param="countrycodes"
         id="option_ccode"
         size="15"
-        value={api_request_params.countrycodes || ""}
+        value={api_request_params.countrycodes || ''}
         pattern="^[a-zA-Z]{'{2}'}(,[a-zA-Z]{'{2}'})*$"
         on:change={set_api_param}
       />

@@ -16,11 +16,21 @@ export const page = writable();
  * the requested query parameters. It may also be omitted completely for a
  * link without query parameters.
  */
-const pagenames = ['welcome', 'thanks', 'about', 'wrongresult', 'wronginfo', 'wronginfosearch'];
+const pagenames = [
+  'welcome',
+  'thanks',
+  'about',
+  'wrongresult',
+  'wronginfo',
+  'wronginfosearch',
+  'thankyou'
+];
 
 export function refresh_page(pagename, params) {
   if (typeof pagename === 'undefined') {
-    pagename = window.location.pathname.replace('.html', '').replace(/^.*\//, '');
+    pagename = window.location.pathname
+      .replace('.html', '')
+      .replace(/^.*\//, '');
 
     if (!pagenames.includes(pagename)) pagename = 'welcome';
 

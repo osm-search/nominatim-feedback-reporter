@@ -1,9 +1,9 @@
 <script>
-  import { onMount } from "svelte";
-  import { update_html_title } from "../lib/api_utils.js";
+  import { onMount } from 'svelte';
+  import { update_html_title } from '../lib/api_utils.js';
 
-  import Header from "../components/Header.svelte";
-  import WelcomeBtn from "../components/WelcomeBtn.svelte";
+  import Header from '../components/Header.svelte';
+  import WelcomeBtn from '../components/WelcomeBtn.svelte';
 
   // let aStatusData = {};
   // let configuration = Nominatim_Config;
@@ -12,7 +12,7 @@
     // fetch_from_api('status', { format: 'json' }, function (data) {
     //   aStatusData = data;
     // });
-    update_html_title("Welcome");
+    update_html_title('Welcome');
   }
   onMount(loaddata);
 </script>
@@ -29,7 +29,7 @@
       <div class="col-sm-12 d-flex justify-content-center">
         <div class="btn btn-secondary py-4 w-25">
           <form
-            on:submit|preventDefault={"handleFormSubmit"}
+            on:submit|preventDefault={'handleFormSubmit'}
             class="form-inline"
             action="details.html"
           >

@@ -1,8 +1,8 @@
 <script>
-  import PageLink from "./PageLink.svelte";
-  import Error from "./Error.svelte";
+  import PageLink from './PageLink.svelte';
+  import Error from './Error.svelte';
 
-  import { page } from "../lib/stores.js";
+  import { page } from '../lib/stores.js';
 
   $: view = $page.tab;
   $: page_title = Nominatim_Config.Page_Title;

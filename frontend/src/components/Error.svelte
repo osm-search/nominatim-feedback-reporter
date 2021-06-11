@@ -1,5 +1,5 @@
 <script>
-  import { error_store } from "../lib/stores.js";
+  import { error_store } from '../lib/stores.js';
 
   let error_message;
 

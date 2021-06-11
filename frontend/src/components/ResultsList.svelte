@@ -1,9 +1,9 @@
 <script>
-  import { results_store } from "../lib/stores.js";
-  import { formatLabel } from "../lib/helpers.js";
+  import { results_store } from '../lib/stores.js';
+  import { formatLabel } from '../lib/helpers.js';
 
-  import Welcome from "./Welcome.svelte";
-  import MapIcon from "./MapIcon.svelte";
+  import Welcome from './Welcome.svelte';
+  import MapIcon from './MapIcon.svelte';
 
   export let reverse_search = false;
   export let current_result = null;
@@ -28,20 +28,20 @@
     // one or two results when it believes the result to be a good enough match.
     // if (aResults.length >= 10) {
     var aExcludePlaceIds = [];
-    if (search_params.has("exclude_place_ids")) {
-      aExcludePlaceIds = search_params.get("exclude_place_ids").split(",");
+    if (search_params.has('exclude_place_ids')) {
+      aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
     }
     for (var i = 0; i < aResults.length; i += 1) {
       aExcludePlaceIds.push(aResults[i].place_id);
     }
     var parsed_url = new URLSearchParams(window.location.search);
-    parsed_url.set("exclude_place_ids", aExcludePlaceIds.join(","));
-    sMoreURL = "?" + parsed_url.toString();
+    parsed_url.set('exclude_place_ids', aExcludePlaceIds.join(','));
+    sMoreURL = '?' + parsed_url.toString();
   });
 
   function handleClick(e) {
     let result_el = e.target;
-    if (!result_el.className.match("result")) {
+    if (!result_el.className.match('result')) {
       result_el = result_el.parentElement;
     }
     let pos = Number(result_el.dataset.position);
