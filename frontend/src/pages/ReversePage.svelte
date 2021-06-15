@@ -26,7 +26,8 @@
         search_params.get('zoom') > 1
           ? Number(search_params.get('zoom'))
           : Number(Nominatim_Config.Reverse_Default_Search_Zoom),
-      format: 'jsonv2'
+      format: 'jsonv2',
+      polygon_geojson: 1 
     };
 
     if (api_request_params.lat || api_request_params.lat) {

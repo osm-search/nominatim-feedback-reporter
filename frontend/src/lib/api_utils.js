@@ -116,7 +116,7 @@ function generate_overpass_query(radius, lat, lon) {
     way[~"name*"~"."](around:${radius},${lat},${lon});
     relation[~"name*"~"."](around:${radius},${lat},${lon});
   );
-  out center;
+  out ids;
   `;
   return query;
 }
