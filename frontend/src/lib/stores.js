@@ -23,6 +23,7 @@ const pagenames = [
   'wrongresult',
   'wronginfo',
   'wronginfosearch',
+  'wrongresultreverse',
   'thankyou'
 ];
 

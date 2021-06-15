@@ -1,4 +1,5 @@
 module.exports.formatOSMType = formatOSMType;
+module.exports.formatOSMTypeId = formatOSMTypeId;
 module.exports.osmLink = osmLink;
 module.exports.formatLabel = formatLabel;
 module.exports.wikipediaLink = wikipediaLink;
@@ -23,6 +24,13 @@ function formatOSMType(sType, bExcludeExternal) {
   if (sType === 'T') return 'way';
   if (sType === 'I') return 'way';
 
+  return '';
+}
+
+function formatOSMTypeId(type, id) {
+  if (type === 'node') return 'N' + id;
+  if (type === 'way') return 'W' + id;
+  if (type === 'relation') return 'R' + id;
   return '';
 }
 

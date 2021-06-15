@@ -11,6 +11,7 @@
   import WrongInfo from './pages/WrongInfo.svelte';
   import AboutPage from './pages/AboutPage.svelte';
   import SearchPage from './pages/SearchPage.svelte';
+  import ReversePage from './pages/ReversePage.svelte';
   import ThankYouPage from './pages/ThankYouPage.svelte';
 
   $: view = $page.tab;
@@ -31,6 +32,8 @@
   <WrongInfo />
 {:else if view === 'wronginfosearch'}
   <SearchPage />
+{:else if view === 'wrongresultreverse'}
+  <ReversePage />
 {:else if view === 'thankyou'}
   <ThankYouPage />
 {/if}

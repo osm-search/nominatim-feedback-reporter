@@ -89,3 +89,34 @@ export function update_html_title(title) {
     .join(' | ');
 }
 
+export async function fetch_from_overpass_api(radius, lat, lon, callback) {
+  let query = generate_overpass_query(radius, lat, lon);
+  console.log(query);
+  let api_url = Nominatim_Config.Overpass_API_Endpoint + 'interpreter?data=' + query;
+  try {
+    await fetch(api_url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          error_store.set(data.error.message);
+        }
+        callback(data);
+      });
+  } catch (error) {
+    error_store.set(`Error fetching data from ${api_url} (${error})`);
+  }
+}
+
+function generate_overpass_query(radius, lat, lon) {
+  let query = `
+ 
+  [out:json];
+  (
+    node[~"name*"~"."](around:${radius},${lat},${lon});
+    way[~"name*"~"."](around:${radius},${lat},${lon});
+    relation[~"name*"~"."](around:${radius},${lat},${lon});
+  );
+  out center;
+  `;
+  return query;
+}

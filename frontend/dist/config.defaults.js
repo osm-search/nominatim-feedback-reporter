@@ -6,6 +6,10 @@ let Nominatim_Config = {
   // Where Nominatim API runs. Remember to add port if needed and trailing slash.
   Nominatim_API_Endpoint: 'https://nominatim.openstreetmap.org/',
 
+  // Where Overpass API runs. Remember to add port if needed and trailing slash.
+  Overpass_API_Endpoint: 'https://overpass-api.de/api/',
+
+
   // Additional request headers for Nominatim API.
   Nominatim_API_Endpoint_Headers: {},
 
