@@ -33,6 +33,7 @@
       fetch_from_api('reverse', api_request_params, async function (data) {
         if (data && !data.error) {
           let all_data = [data];
+          let revese_osm_type_id = formatOSMTypeId(data.osm_type, data.osm_id);
           if (api_request_params.zoom > 13) {
             let osm_ids = [];
             position_marker = [api_request_params.lat, api_request_params.lon];
@@ -46,9 +47,14 @@
                 });
               }
             );
+            if (osm_ids.includes(revese_osm_type_id)) {
+              all_data.pop();
+              osm_ids = osm_ids.filter(item => item !== revese_osm_type_id);
+              osm_ids.unshift(revese_osm_type_id);
+            }
             await fetch_from_api(
               'lookup',
-              { format: 'json', osm_ids: osm_ids.join() },
+              { format: 'json', osm_ids: osm_ids.join(), polygon_geojson: 1 },
               async function (lookup_data) {
                 all_data = all_data.concat(lookup_data);
                 console.log(all_data);
