@@ -1,9 +1,9 @@
 <script>
-  import { results_store } from '../lib/stores.js';
-  import { formatLabel } from '../lib/helpers.js';
+  import { results_store } from "../lib/stores.js";
+  import { formatLabel } from "../lib/helpers.js";
 
-  import Welcome from './Welcome.svelte';
-  import MapIcon from './MapIcon.svelte';
+  import Welcome from "./Welcome.svelte";
+  import MapIcon from "./MapIcon.svelte";
 
   export let reverse_search = false;
   export let current_result = null;
@@ -28,20 +28,20 @@
     // one or two results when it believes the result to be a good enough match.
     // if (aResults.length >= 10) {
     var aExcludePlaceIds = [];
-    if (search_params.has('exclude_place_ids')) {
-      aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
+    if (search_params.has("exclude_place_ids")) {
+      aExcludePlaceIds = search_params.get("exclude_place_ids").split(",");
     }
     for (var i = 0; i < aResults.length; i += 1) {
       aExcludePlaceIds.push(aResults[i].place_id);
     }
     var parsed_url = new URLSearchParams(window.location.search);
-    parsed_url.set('exclude_place_ids', aExcludePlaceIds.join(','));
-    sMoreURL = '?' + parsed_url.toString();
+    parsed_url.set("exclude_place_ids", aExcludePlaceIds.join(","));
+    sMoreURL = "?" + parsed_url.toString();
   });
 
   function handleClick(e) {
     let result_el = e.target;
-    if (!result_el.className.match('result')) {
+    if (!result_el.className.match("result")) {
       result_el = result_el.parentElement;
     }
     let pos = Number(result_el.dataset.position);
@@ -68,17 +68,44 @@
         <p class="coords">{aResult.lat},{aResult.lon}</p>
       </div>
     {/each}
-    <div class="noneofabove">
-      <a class="btn btn-outline-secondary btn-sm">None of above</a>
-    </div>
+    {#if !reverse_search}
+      <div class="noneofabove">
+        <a class="btn btn-outline-secondary btn-sm">None of above</a>
+      </div>
+    {:else}
+      <div class="btn btn-secondary py-4 result">
+        <form
+          on:submit|preventDefault={"handleFormSubmit"}
+          class="form-inline"
+          action="details.html"
+        >
+          <div class="row g-1 justify-content-center">
+            <div class="col-auto">
+              <input
+                type="edit"
+                class="form-control form-control-sm me-1"
+                pattern="^[NWRnwr]?[0-9]+$|.*openstreetmap.*"
+                placeholder="Search by Id or Nominatim URL"
+              />
+            </div>
+            <!-- <div class="col-auto mt-2">
+              <button type="submit" class="btn btn-primary btn-sm"
+                >Proceed</button
+              >
+            </div> -->
+          </div>
+        </form>
+      </div>
+    {/if}
+
     {#if sMoreURL && !reverse_search}
       <div class="more">
         <a class="btn btn-primary" href={sMoreURL}> Search for more results </a>
       </div>
     {/if}
-    <div class="d-flex justify-content-center mt-5">
-      <button class="btn btn-primary">Proceed With selected option</button>
-    </div>
+  </div>
+  <div class="d-flex justify-content-center mt-5">
+    <button class="btn btn-primary">Proceed With selected option</button>
   </div>
 {:else if aSearchResults}
   {#if reverse_search}
@@ -103,6 +130,10 @@
     border: 2px solid #d7e7ff;
     cursor: pointer;
     min-height: 5em;
+  }
+  #searchresults {
+    max-height: 60vh;
+    overflow-y: auto;
   }
 
   .result.highlight {

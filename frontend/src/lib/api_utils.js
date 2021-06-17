@@ -109,7 +109,6 @@ export async function fetch_from_overpass_api(radius, lat, lon, callback) {
 
 function generate_overpass_query(radius, lat, lon) {
   let query = `
- 
   [out:json];
   (
     node[~"name*"~"."](around:${radius},${lat},${lon});
