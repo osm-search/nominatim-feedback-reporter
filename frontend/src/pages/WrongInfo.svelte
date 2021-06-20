@@ -5,13 +5,7 @@
   import Header from '../components/Header.svelte';
   import WelcomeBtn from '../components/WelcomeBtn.svelte';
 
-  // let aStatusData = {};
-  // let configuration = Nominatim_Config;
-
   function loaddata() {
-    // fetch_from_api('status', { format: 'json' }, function (data) {
-    //   aStatusData = data;
-    // });
     update_html_title('Welcome');
   }
   onMount(loaddata);
@@ -23,8 +17,8 @@
     <h2>Select your searching method for wrong information</h2>
   </div>
   <div class="container">
-    <WelcomeBtn text="Using search query" />
-    <WelcomeBtn text="Using reverse search method" />
+    <WelcomeBtn text="Using search query" redirect='wronginfosearch' />
+    <WelcomeBtn text="Using reverse search method" redirect='wronginforeverse' />
     <div class="row mb-3">
       <div class="col-sm-12 d-flex justify-content-center">
         <div class="btn btn-secondary py-4 w-25">

@@ -7,7 +7,7 @@
 
   function loaddata() {
     update_html_title('Welcome');
-    localStorage.clear('bug_data')
+    localStorage.clear('bug_data');
   }
   onMount(loaddata);
 </script>
@@ -21,9 +21,10 @@
     <WelcomeBtn
       text="Result not found / Result found but expected result missing"
       feedbackType="WR"
+      redirect="wrongresult"
     />
-    <WelcomeBtn text="Result found but of wrong order" feedbackType="WO" />
-    <WelcomeBtn text="Wrong information of Result" feedbackType="WI" />
-    <WelcomeBtn text="Any other feedback" feedbackType="SF" />
+    <WelcomeBtn text="Result found but of wrong order" feedbackType="WO" redirect='wronginfosearch' />
+    <WelcomeBtn text="Wrong information of Result" feedbackType="WI" redirect="wronginfo" />
+    <WelcomeBtn text="Any other feedback" feedbackType="SF" redirect="bugdescription" />
   </div>
 </div>

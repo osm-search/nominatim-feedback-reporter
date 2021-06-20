@@ -1,26 +1,17 @@
 <script>
-  import { getSetBugData } from "../lib/helpers.js";
-  import { refresh_page } from "../lib/stores.js";
+  import { getSetBugData } from '../lib/helpers.js';
+  import { refresh_page } from '../lib/stores.js';
 
   export let text;
   export let feedbackType;
+  export let redirect;
+
   function handleClick() {
     if (feedbackType) {
-      getSetBugData("feedback_type", feedbackType);
-      switch (feedbackType) {
-        case "WR":
-          refresh_page("wrongresult");
-          break;
-        case "WO":
-          refresh_page("wronginfosearch");
-          break;
-        case "WI":
-          refresh_page("wronginfo");
-          break;
-        case "SF":
-          refresh_page("bugdescription");
-          break;
-      }
+      getSetBugData('feedback_type', feedbackType);
+    }
+    if (redirect) {
+      refresh_page(redirect);
     }
   }
 </script>

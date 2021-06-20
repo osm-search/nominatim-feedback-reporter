@@ -23,7 +23,7 @@
     <h2>Select your searching method for wrong result</h2>
   </div>
   <div class="container">
-    <WelcomeBtn text="Using search query" />
-    <WelcomeBtn text="Using reverse search method" />
+    <WelcomeBtn text="Using search query" redirect="wrongresultsearch" />
+    <WelcomeBtn text="Using reverse search method" redirect="wrongresultreverse" />
   </div>
 </div>
