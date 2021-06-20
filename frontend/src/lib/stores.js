@@ -24,6 +24,8 @@ const pagenames = [
   'wronginfo',
   'wronginfosearch',
   'wrongresultreverse',
+  'bugdescription',
+  'verifyedit',
   'thankyou'
 ];
 

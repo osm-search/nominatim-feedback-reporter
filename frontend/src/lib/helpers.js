@@ -11,6 +11,8 @@ module.exports.formatAdminLevel = formatAdminLevel;
 module.exports.formatDistance = formatDistance;
 module.exports.formatKeywordToken = formatKeywordToken;
 module.exports.zoomLevels = zoomLevels;
+module.exports.geocodingProperties = geocodingProperties;
+
 
 const escapeHtml = require('escape-html');
 
@@ -160,4 +162,20 @@ function zoomLevels() {
     /* 21 */ ''
   ];
   return aZoomLevels;
+}
+
+function geocodingProperties() {
+  const properties = [
+    'name',
+    'housenumber',
+    'street',
+    'locality',
+    'postcode',
+    'city',
+    'district',
+    'county',
+    'state',
+    'country'
+  ];
+  return properties;
 }

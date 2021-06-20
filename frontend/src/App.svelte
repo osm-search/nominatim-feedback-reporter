@@ -12,6 +12,9 @@
   import AboutPage from './pages/AboutPage.svelte';
   import SearchPage from './pages/SearchPage.svelte';
   import ReversePage from './pages/ReversePage.svelte';
+  import BugDescriptionPage from './pages/BugDescriptionPage.svelte';
+  import VerifyEditDetailsPage from './pages/VerifyEditDetailsPage.svelte';
+
   import ThankYouPage from './pages/ThankYouPage.svelte';
 
   $: view = $page.tab;
@@ -34,7 +37,11 @@
   <SearchPage />
 {:else if view === 'wrongresultreverse'}
   <ReversePage />
+{:else if view === 'bugdescription'}
+  <BugDescriptionPage />
 {:else if view === 'thankyou'}
   <ThankYouPage />
+{:else if view === 'verifyedit'}
+  <VerifyEditDetailsPage />
 {/if}
 <Footer />
