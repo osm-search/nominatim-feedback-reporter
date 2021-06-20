@@ -5,14 +5,9 @@
   import Header from '../components/Header.svelte';
   import WelcomeBtn from '../components/WelcomeBtn.svelte';
 
-  // let aStatusData = {};
-  // let configuration = Nominatim_Config;
-
   function loaddata() {
-    // fetch_from_api('status', { format: 'json' }, function (data) {
-    //   aStatusData = data;
-    // });
     update_html_title('Welcome');
+    localStorage.clear('bug_data')
   }
   onMount(loaddata);
 </script>
@@ -25,9 +20,10 @@
   <div class="container">
     <WelcomeBtn
       text="Result not found / Result found but expected result missing"
+      feedbackType="WR"
     />
-    <WelcomeBtn text="Result found but of wrong order" />
-    <WelcomeBtn text="Wrong information of Result" />
-    <WelcomeBtn text="Any other feedback" />
+    <WelcomeBtn text="Result found but of wrong order" feedbackType="WO" />
+    <WelcomeBtn text="Wrong information of Result" feedbackType="WI" />
+    <WelcomeBtn text="Any other feedback" feedbackType="SF" />
   </div>
 </div>

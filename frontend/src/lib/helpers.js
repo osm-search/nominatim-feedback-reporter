@@ -12,6 +12,8 @@ module.exports.formatDistance = formatDistance;
 module.exports.formatKeywordToken = formatKeywordToken;
 module.exports.zoomLevels = zoomLevels;
 module.exports.geocodingProperties = geocodingProperties;
+module.exports.getSetBugData = getSetBugData;
+module.exports.getBugData = getBugData;
 
 
 const escapeHtml = require('escape-html');
@@ -178,4 +180,19 @@ function geocodingProperties() {
     'country'
   ];
   return properties;
+}
+
+function getSetBugData(key, value) {
+  let bug_data = getBugData();
+  bug_data[key] = value;
+
+  localStorage.setItem('bug_data', JSON.stringify(bug_data));
+  return localStorage.getItem('bug_data');
+}
+function getBugData() {
+  if (localStorage.getItem('bug_data')) {
+    return JSON.parse(localStorage.getItem('bug_data'));
+  }
+
+  return {};
 }
