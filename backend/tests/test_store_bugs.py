@@ -1,10 +1,13 @@
 import json
-import os
+import sys, os
 import falcon
 from falcon import testing
 import pytest
 
-from backend.run import app
+python_path = os.path.dirname(os.path.abspath(__file__)) + '/../'
+sys.path.insert(0, python_path)
+
+from run import app
 
 @pytest.fixture
 def client():

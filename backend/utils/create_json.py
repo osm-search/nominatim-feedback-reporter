@@ -3,7 +3,7 @@ from os import path
 
 def create_json(data, file_location):
     """Handles creating or appending JSON file"""
-    if(not path.exists(file_location)):
+    if not path.exists(file_location):
         with open(file_location, "w") as file:
             json.dump([], file, indent=4)
 

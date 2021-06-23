@@ -1,9 +1,12 @@
+""" Controller for storing feedback/bugs to JSON file """
+
 import os
-import falcon
 import json
-from backend.utils.create_json import create_json
+import falcon
+from utils.create_json import create_json
 
 class StoreBugs:
+    """ Handles various types of request to /api/bug endpoint """
 
     def on_post(self, req, resp):
         """Handles POST requests"""

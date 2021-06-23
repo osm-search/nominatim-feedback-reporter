@@ -1,3 +1,5 @@
+""" Middleware for handling only JSON requests """
+
 import falcon
 
 class RequireJSON:

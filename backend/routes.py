@@ -1,4 +1,6 @@
-from backend.controller import store_bugs as _store_bugs
+""" Specifies endpoints for the REST API  """
+
+from controller import store_bugs as _store_bugs
 
 
 # Dict mapping apis to their classes
