@@ -5,7 +5,7 @@
 <Header />
 <div class="container-fluid">
   <div class="row mb-4 mt-4">
-    <h2>Bug Description</h2>
+    <h2>Feedback Description</h2>
   </div>
   <div class="container">
     <form>
@@ -14,10 +14,10 @@
           class="form-control"
           id="bugdescription"
           rows="15"
-          placeholder="Enter the bug description"
+          placeholder="Enter additional details"
         />
         <div class="float-end mt-3">
-          <button type="submit" class="btn btn-success">Submit Bug Report </button>
+          <button type="submit" class="btn btn-success">Submit Feedback Report </button>
         </div>
       </div>
     </form>

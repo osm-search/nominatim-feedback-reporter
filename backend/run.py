@@ -1,17 +1,17 @@
-
 import falcon
 from wsgiref import simple_server
+from dotenv import load_dotenv
 
 from middlewares.json_validator import RequireJSON
 from routes import routes as _routes
 
-
 # initialize the falcon application
+
+load_dotenv()
 
 middlewares = [RequireJSON()]
 
 app = application = falcon.App(middleware=middlewares)
-
 
 # Initialize all api routes.
 for apiRoute, apiClass in _routes.items():
