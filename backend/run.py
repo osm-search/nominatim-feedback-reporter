@@ -2,8 +2,8 @@ import falcon
 from wsgiref import simple_server
 from dotenv import load_dotenv
 
-from middlewares.json_validator import RequireJSON
-from routes import routes as _routes
+from backend.middlewares.json_validator import RequireJSON
+from backend.routes import routes as _routes
 
 # initialize the falcon application
 

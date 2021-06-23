@@ -1,7 +1,7 @@
 import os
 import falcon
 import json
-from utils.create_json import create_json
+from backend.utils.create_json import create_json
 
 class StoreBugs:
 
