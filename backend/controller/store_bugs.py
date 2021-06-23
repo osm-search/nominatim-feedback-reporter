@@ -7,6 +7,6 @@ class StoreBugs:
 
     def on_post(self, req, resp):
         """Handles POST requests"""
-        resp.status = falcon.HTTP_200
         create_json(req.body, os.environ.get('FEEDBACK_JSON_FILE'))
-        resp.text = json.dumps(req.body, ensure_ascii=False)
+        resp.status = falcon.HTTP_200
+        resp.text = json.dumps({'message': 'Successfully submitted bug report'}, ensure_ascii=False)
