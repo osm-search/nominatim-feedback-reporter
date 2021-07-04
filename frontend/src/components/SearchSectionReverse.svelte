@@ -2,11 +2,13 @@
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
 
   import { zoomLevels } from '../lib/helpers.js';
-  import { map_store, refresh_page } from '../lib/stores.js';
+  import { map_store, refresh_page, page } from '../lib/stores.js';
 
   export let lat = '';
   export let lon = '';
   export let zoom = '';
+
+  $: view = $page.tab;
 
   function gotoCoordinates(newlat, newlon, newzoom) {
     if (newlat === null || newlon === null) return;
@@ -15,7 +17,7 @@
     params.set('lat', newlat);
     params.set('lon', newlon);
     params.set('zoom', newzoom || zoom);
-    refresh_page('wrongresultreverse', params);
+    refresh_page(view, params);
   }
 
   map_store.subscribe(map => {
@@ -38,7 +40,7 @@
 
 </script>
 
-<UrlSubmitForm page="wrongresultreverse">
+<UrlSubmitForm page={view}>
   <div class="col-auto">
     <label for="reverse-lat">lat</label>
   </div>

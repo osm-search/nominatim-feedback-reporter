@@ -25,7 +25,6 @@
 
       fetch_from_api('lookup', api_request_params, function (data) {
         api_request_finished = true;
-        console.log(data);
         location_details = data && !data.error ? data : undefined;
         current_geocodeing_details = location_details.features[0].properties.geocoding;
         new_geocodeing_details = location_details.features[0].properties.geocoding;
@@ -79,9 +78,7 @@
     </table>
     <MapModal />
     <div class="float-end mt-4">
-      <button type="submit" class="btn btn-success"
-        >Verified and edited details</button
-      >
+      <button class="btn btn-success">Verified and edited details</button>
     </div>
   </div>
 </div>

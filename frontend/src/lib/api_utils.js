@@ -91,7 +91,6 @@ export function update_html_title(title) {
 
 export async function fetch_from_overpass_api(radius, lat, lon, callback) {
   let query = generate_overpass_query(radius, lat, lon);
-  console.log(query);
   let api_url = Nominatim_Config.Overpass_API_Endpoint + 'interpreter?data=' + query;
   try {
     await fetch(api_url)

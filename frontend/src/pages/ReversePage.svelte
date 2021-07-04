@@ -6,11 +6,11 @@
     fetch_from_overpass_api
   } from '../lib/api_utils.js';
   import { formatOSMTypeId } from '../lib/helpers.js';
-
   import Header from '../components/Header.svelte';
   import SearchSectionReverse from '../components/SearchSectionReverse.svelte';
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
+
 
   let api_request_params;
   let current_result;
@@ -50,7 +50,7 @@
             );
             if (osm_ids.includes(revese_osm_type_id)) {
               all_data.pop();
-              osm_ids = osm_ids.filter(item => item !== revese_osm_type_id);
+              osm_ids = osm_ids.filter((item) => item !== revese_osm_type_id);
               osm_ids.unshift(revese_osm_type_id);
             }
             await fetch_from_api(
@@ -58,10 +58,8 @@
               { format: 'json', osm_ids: osm_ids.join(), polygon_geojson: 1 },
               async function (lookup_data) {
                 all_data = all_data.concat(lookup_data);
-                console.log(all_data);
               }
             );
-            console.log(all_data);
           }
 
           results_store.set(all_data);
@@ -84,7 +82,7 @@
 
   $: {
     let pageinfo = $page;
-    if (pageinfo.tab === 'wrongresultreverse') {
+    if (pageinfo.tab.includes('reverse')) {
       loaddata(pageinfo.params);
     }
   }

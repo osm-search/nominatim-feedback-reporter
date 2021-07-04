@@ -1,16 +1,16 @@
 <script>
-  import Header from "../components/Header.svelte";
-  import { getSetBugData } from "../lib/helpers.js";
-  import { refresh_page,error_store } from "../lib/stores.js";
+  import Header from '../components/Header.svelte';
+  import { getSetBugData } from '../lib/helpers.js';
+  import { refresh_page, error_store } from '../lib/stores.js';
 
   export let feedbackDescription;
 
   function handleClick() {
     if (feedbackDescription) {
-      getSetBugData("final_bug_description", feedbackDescription);
-      refresh_page("thankyou");
+      getSetBugData('final_bug_description', feedbackDescription);
+      refresh_page('thankyou');
     } else {
-      error_store.set(`You need to add a feedback description`);
+      error_store.set('You need to add a feedback description');
     }
   }
 </script>
