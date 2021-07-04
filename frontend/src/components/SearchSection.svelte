@@ -1,7 +1,7 @@
 <script>
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
 
-  import { map_store } from '../lib/stores.js';
+  import { map_store, page } from '../lib/stores.js';
   import { get } from 'svelte/store';
 
   export let bStructuredSearch = false;
@@ -9,6 +9,8 @@
   let sViewBox;
   let lat;
   let lon;
+
+  $: view = $page.tab;
 
   function map_viewbox_as_string(map) {
     var bounds = map.getBounds();
@@ -114,7 +116,7 @@
     id="simple"
     role="tabpanel"
   >
-    <UrlSubmitForm page="wronginfosearch">
+    <UrlSubmitForm page={view}>
       <div class="col-auto">
         <input
           id="q"
@@ -169,7 +171,7 @@
     id="structured"
     role="tabpanel"
   >
-    <UrlSubmitForm page="wronginfosearch">
+    <UrlSubmitForm page={view}>
       <div class="col-auto">
         <input
           name="street"

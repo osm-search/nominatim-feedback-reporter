@@ -7,17 +7,7 @@
   $: view = $page.tab;
   $: page_title = Nominatim_Config.Page_Title;
 
-  // let map_lat;
-  // let map_lon;
 
-  // map_store.subscribe(map => {
-  //   if (!map) return;
-
-  //   map.on('move', function () {
-  //     map_lat = map.getCenter().lat;
-  //     map_lon = map.getCenter().lng;
-  //   });
-  // });
 </script>
 
 <header class="container-fluid">

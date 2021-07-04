@@ -61,7 +61,7 @@
 
   $: {
     let pageinfo = $page;
-    if (pageinfo.tab === 'wronginfosearch') {
+    if (pageinfo.tab.includes('search')) {
       loaddata(pageinfo.params);
     }
   }
