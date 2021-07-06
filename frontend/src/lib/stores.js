@@ -22,7 +22,7 @@ const pagenames = [
   'about',
   'wrongresult',
   'wronginfo',
-  'wrongorder',
+  'wrongordersearch',
   'wronginfosearch',
   'wronginforeverse',
   'wrongresultsearch',

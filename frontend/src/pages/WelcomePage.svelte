@@ -23,7 +23,7 @@
       feedbackType="WR"
       redirect="wrongresult"
     />
-    <WelcomeBtn text="Result found but of wrong order" feedbackType="WO" redirect='wronginfosearch' />
+    <WelcomeBtn text="Result found but of wrong order" feedbackType="WO" redirect='wrongordersearch' />
     <WelcomeBtn text="Wrong information of Result" feedbackType="WI" redirect="wronginfo" />
     <WelcomeBtn text="Any other feedback" feedbackType="SF" redirect="bugdescription" />
   </div>

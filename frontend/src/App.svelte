@@ -33,7 +33,7 @@
   <WrongResult />
 {:else if view === 'wronginfo'}
   <WrongInfo />
-{:else if view === 'wrongorder'}
+{:else if view === 'wrongordersearch'}
   <SearchPage />
 {:else if view === 'wronginfosearch'}
   <SearchPage />

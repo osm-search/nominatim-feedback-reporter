@@ -74,7 +74,7 @@
       url_params.set('osmid', aSearchResults[iHighlightNum].osm_id);
 
       refresh_page('verifyedit', url_params);
-    } else if (view.includes('result')) {
+    } else if (view.includes('result') || view.includes('wrongordersearch')) {
       if (view.includes('reverse')) {
         let newEntries = {
           query_type: 'reverse_search',
@@ -107,7 +107,7 @@
         getSetObjectBugData(newEntries);
 
         refresh_page('bugdescription');
-      } else if (view.includes('search')) {
+      } else if (view.includes('search') ) {
         let newEntries;
 
         if (params.get('q') != null) {
