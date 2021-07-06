@@ -1,6 +1,8 @@
 <script>
   import { refresh_page, results_store } from '../lib/stores.js';
-  import { formatLabel } from '../lib/helpers.js';
+  import {
+    formatLabel, getSetObjectBugData, formatOSMTypeId
+} from '../lib/helpers.js';
   import { page } from '../lib/stores.js';
 
   import Welcome from './Welcome.svelte';
@@ -9,6 +11,7 @@
   export let reverse_search = false;
   export let current_result = null;
 
+  $: params = $page.params;
   $: view = $page.tab;
 
   let searchByIdText;
@@ -27,10 +30,7 @@
     let search_params = new URLSearchParams(window.location.search);
 
     let aResults = data;
-    // lonvia wrote: https://github.com/osm-search/nominatim-ui/issues/24
-    // I would suggest to remove the guessing and always show the link. Nominatim only returns
-    // one or two results when it believes the result to be a good enough match.
-    // if (aResults.length >= 10) {
+  
     var aExcludePlaceIds = [];
     if (search_params.has('exclude_place_ids')) {
       aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
@@ -71,6 +71,41 @@
       url_params.set('osmid', aSearchResults[iHighlightNum].osm_id);
 
       refresh_page('verifyedit', url_params);
+
+    } else if (view.includes('result')) {
+      if (view.includes('reverse')) {
+        let newEntries = {
+          query_type: 'reverse_search',
+          lat: params.get('lat'),
+          lon: params.get('lon'),
+          zoom: params.get('zoom')
+        };
+
+        if (iHighlightNum >= 0) {
+          newEntries.correct_osm_object = formatOSMTypeId(
+            current_result.osm_type,
+            current_result.osm_id
+          );
+        } else {
+          let val = searchByIdText;
+          let type_and_id_match = val.match(/^\s*([NWR])(\d+)\s*$/i)
+          || val.match(/\/(relation|way|node)\/(\d+)\s*$/);
+          if (type_and_id_match) {
+            newEntries.correct_osm_object = type_and_id_match[1].charAt(0).toUpperCase()
+            + type_and_id_match[2];
+          } else {
+            alert('invalid input');
+          }
+        }
+
+        getSetObjectBugData(newEntries);
+
+        refresh_page('bugdescription');
+
+      } else if (view.includes('search')) {
+        console.log('on search ');
+      }
+  
     }
   }
 </script>

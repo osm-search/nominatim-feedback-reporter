@@ -14,6 +14,7 @@ module.exports.zoomLevels = zoomLevels;
 module.exports.geocodingProperties = geocodingProperties;
 module.exports.getSetBugData = getSetBugData;
 module.exports.getBugData = getBugData;
+module.exports.getSetObjectBugData = getSetObjectBugData;
 
 
 const escapeHtml = require('escape-html');
@@ -189,6 +190,15 @@ function getSetBugData(key, value) {
   localStorage.setItem('bug_data', JSON.stringify(bug_data));
   return localStorage.getItem('bug_data');
 }
+
+function getSetObjectBugData(data) {
+  let bug_data = getBugData();
+  bug_data = Object.assign(bug_data, data);
+
+  localStorage.setItem('bug_data', JSON.stringify(bug_data));
+  return localStorage.getItem('bug_data');
+}
+
 function getBugData() {
   if (localStorage.getItem('bug_data')) {
     return JSON.parse(localStorage.getItem('bug_data'));
