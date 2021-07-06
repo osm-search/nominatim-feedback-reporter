@@ -1,8 +1,11 @@
 <script>
   import { refresh_page, results_store } from '../lib/stores.js';
   import {
-    formatLabel, getSetObjectBugData, formatOSMTypeId
-} from '../lib/helpers.js';
+    formatLabel,
+    getSetObjectBugData,
+    formatOSMTypeId,
+    getBugData
+  } from '../lib/helpers.js';
   import { page } from '../lib/stores.js';
 
   import Welcome from './Welcome.svelte';
@@ -30,7 +33,7 @@
     let search_params = new URLSearchParams(window.location.search);
 
     let aResults = data;
-  
+
     var aExcludePlaceIds = [];
     if (search_params.has('exclude_place_ids')) {
       aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
@@ -71,7 +74,6 @@
       url_params.set('osmid', aSearchResults[iHighlightNum].osm_id);
 
       refresh_page('verifyedit', url_params);
-
     } else if (view.includes('result')) {
       if (view.includes('reverse')) {
         let newEntries = {
@@ -98,14 +100,45 @@
           }
         }
 
+        if (getBugData().correct_osm_object === -1) {
+          delete newEntries.query_type;
+        }
+  
         getSetObjectBugData(newEntries);
 
         refresh_page('bugdescription');
-
       } else if (view.includes('search')) {
-        console.log('on search ');
+        let newEntries;
+
+        if (params.get('q') != null) {
+          newEntries = {
+            query_type: 'simple_search',
+            query: params.get('q')
+          };
+          newEntries.extra_params = Object.fromEntries(params);
+          delete newEntries.extra_params.q;
+        } else {
+          newEntries = {
+            query_type: 'structured_search',
+            structured_query: Object.fromEntries(params)
+          };
+        }
+
+        if (iHighlightNum >= 0) {
+          newEntries.correct_osm_object = formatOSMTypeId(
+            current_result.osm_type,
+            current_result.osm_id
+          );
+          getSetObjectBugData(newEntries);
+
+          refresh_page('bugdescription');
+        } else {
+          newEntries.correct_osm_object = -1;
+          getSetObjectBugData(newEntries);
+
+          refresh_page('wrongresultreverse');
+        }
       }
-  
     }
   }
 </script>
@@ -128,8 +161,12 @@
       </div>
     {/each}
     {#if view === 'wrongresultsearch'}
-      <div class="noneofabove">
-        <a class="btn btn-outline-secondary btn-sm">None of above</a>
+      <div
+        class="noneofabove"
+        on:click|stopPropagation={handleSearchByIdClick}
+        class:highlight={iHighlightNum === -1}
+      >
+        <button class="btn btn-outline-secondary btn-sm">None of above</button>
       </div>
     {/if}
     {#if view === 'wrongresultreverse'}
@@ -241,14 +278,18 @@
     cursor: pointer;
     min-height: 5em;
   }
-  .noneofabove a {
+  .noneofabove button {
     margin: 10px auto;
     display: block;
     max-width: 10em;
     padding: 1px;
     background-color: white;
   }
-  .noneofabove a:hover {
+  .noneofabove.highlight {
+    background-color: #d9e7f7;
+    border-color: #9db9e4;
+  }
+  .noneofabove button:hover {
     color: rgb(73, 71, 71);
   }
 </style>
