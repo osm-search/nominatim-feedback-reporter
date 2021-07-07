@@ -16,7 +16,7 @@ load_dotenv()
 
 middlewares = [RequireJSON()]
 
-app = application = falcon.App(middleware=middlewares)
+app = application = falcon.App(middleware=middlewares, cors_enable=True)
 
 # Initialize all api routes.
 for apiRoute, apiClass in _routes.items():

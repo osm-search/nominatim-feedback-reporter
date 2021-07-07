@@ -10,6 +10,9 @@ let Nominatim_Config = {
   Overpass_API_Endpoint: 'https://overpass-api.de/api/',
 
 
+  // Where Nominatim-Feedback_Reporter API runs. Remember to add port if needed and trailing slash.
+  Nominatim_Feedback_Reporter_API_Endpoint: 'http://localhost:8000/api/',
+
   // Additional request headers for Nominatim API.
   Nominatim_API_Endpoint_Headers: {},
 

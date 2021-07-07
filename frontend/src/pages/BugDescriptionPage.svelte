@@ -1,14 +1,30 @@
 <script>
   import Header from '../components/Header.svelte';
-  import { getSetBugData } from '../lib/helpers.js';
+  import { getSetBugData, getBugData } from '../lib/helpers.js';
   import { refresh_page, error_store } from '../lib/stores.js';
 
   export let feedbackDescription;
 
-  function handleClick() {
+  async function handleClick() {
     if (feedbackDescription) {
       getSetBugData('final_bug_description', feedbackDescription);
-      refresh_page('thankyou');
+      let bugData = getBugData();
+      let url = Nominatim_Config.Nominatim_Feedback_Reporter_API_Endpoint + 'bug';
+      try {
+        const config = {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(bugData)
+        };
+        await fetch(url, config);
+        refresh_page('thankyou');
+  
+      } catch (error) {
+        error_store.set('Cannot send data to backend');
+      }
     } else {
       error_store.set('You need to add a feedback description');
     }
