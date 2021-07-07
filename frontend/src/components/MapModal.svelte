@@ -1,9 +1,39 @@
 <script>
-  // import Map from '../components/CoordinateMap.svelte';
-  // let position_marker;
+  import Map from '../components/Map.svelte';
+  import { onMount } from 'svelte';
+  import { map_store } from '../lib/stores.js';
+  import * as L from 'leaflet';
+
+  export let newLocation;
+
+  let position_marker;
+  let MapModal;
+  let last_click_latlng;
+  let marker;
+
+  onMount(() => {
+    MapModal.addEventListener('shown.bs.modal', function () {
+      map_store.subscribe((map) => {
+        if (!map) return;
+        map.invalidateSize();
+
+        map.on('click', function (e) {
+          last_click_latlng = e.latlng;
+          if (marker) {
+            map.removeLayer(marker);
+          }
+          marker = L.marker(last_click_latlng);
+          marker.addTo(map);
+        });
+      });
+    });
+  });
+
+  function handleUpdateLocation() {
+    newLocation = last_click_latlng;
+  }
 </script>
 
-<!-- Button trigger modal -->
 <div class="d-grid gap-2">
   <button
     type="button"
@@ -15,13 +45,13 @@
   </button>
 </div>
 
-<!-- Modal -->
 <div
   class="modal fade"
   id="MapModal"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
+  bind:this={MapModal}
 >
   <div class="modal-dialog mw-100 w-75">
     <div class="modal-content">
@@ -38,14 +68,19 @@
       </div>
       <div class="modal-body">
         <div id="map-wrapper">
-          <!-- <Map {position_marker} display_minimap={true} /> -->
+          <Map {position_marker} />
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
           >Close</button
         >
-        <button type="button" class="btn btn-primary">Update Location</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          on:click={handleUpdateLocation}>Update Location</button
+        >
       </div>
     </div>
   </div>

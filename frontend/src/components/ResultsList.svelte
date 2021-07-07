@@ -107,7 +107,7 @@
         getSetObjectBugData(newEntries);
 
         refresh_page('bugdescription');
-      } else if (view.includes('search') ) {
+      } else if (view.includes('search')) {
         let newEntries;
 
         if (params.get('q') != null) {

@@ -1,7 +1,11 @@
 <script>
-  import { page } from '../lib/stores.js';
+  import { page, refresh_page } from '../lib/stores.js';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
-  import { geocodingProperties } from '../lib/helpers.js';
+  import {
+    formatOSMTypeId,
+    geocodingProperties,
+    getSetObjectBugData
+  } from '../lib/helpers.js';
   import Header from '../components/Header.svelte';
   import MapModal from '../components/MapModal.svelte';
 
@@ -10,6 +14,7 @@
   let new_geocodeing_details;
   let api_request_params;
   let api_request_finished = false;
+  let newLocation;
 
   function loaddata(search_params) {
     api_request_params = {
@@ -27,7 +32,10 @@
         api_request_finished = true;
         location_details = data && !data.error ? data : undefined;
         current_geocodeing_details = location_details.features[0].properties.geocoding;
-        new_geocodeing_details = location_details.features[0].properties.geocoding;
+        new_geocodeing_details = Object.assign(
+          {},
+          location_details.features[0].properties.geocoding
+        );
       });
     } else {
       location_details = undefined;
@@ -40,6 +48,43 @@
     if (pageinfo.tab === 'verifyedit') {
       loaddata(pageinfo.params);
     }
+  }
+
+  function handleSubmit() {
+    let newEntries = {};
+    newEntries.correct_osm_object = formatOSMTypeId(
+      current_geocodeing_details.osm_type,
+      current_geocodeing_details.osm_id
+    );
+    let allGeocodingProperties = geocodingProperties();
+    if (newLocation) {
+      newEntries.lat = {
+        expected: newLocation.lat,
+        current: location_details.features[0].geometry.coordinates[1]
+      };
+      newEntries.lon = {
+        expected: newLocation.lng,
+        current: location_details.features[0].geometry.coordinates[0]
+      };
+    }
+
+    allGeocodingProperties.forEach((property) => {
+      if (
+        (new_geocodeing_details[String(property)]
+        || current_geocodeing_details[String(property)])
+      && new_geocodeing_details[String(property)]
+        !== current_geocodeing_details[String(property)]
+      ) {
+        console.log(property);
+        newEntries[String(property)] = {
+          current: current_geocodeing_details[String(property)],
+          expected: new_geocodeing_details[String(property)]
+        };
+      }
+    });
+
+    getSetObjectBugData(newEntries);
+    refresh_page('bugdescription');
   }
 </script>
 
@@ -76,9 +121,13 @@
         {/if}
       </tbody>
     </table>
-    <MapModal />
+    <MapModal bind:newLocation />
     <div class="float-end mt-4">
-      <button class="btn btn-success">Verified and edited details</button>
+      <button
+        class="btn btn-success"
+        on:click|preventDefault|stopPropagation={handleSubmit}
+        >Verified and edited details</button
+      >
     </div>
   </div>
 </div>
