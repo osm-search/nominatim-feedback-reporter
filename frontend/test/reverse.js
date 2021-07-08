@@ -7,6 +7,7 @@ describe('Reverse Page', function () {
     before(async function () {
       page = await browser.newPage();
       await page.goto('http://localhost:9999/wronginforeverse.html');
+      await page.waitForSelector('.search-section');
       await page.type('input[name=lat]', '27.1750090510034');
       await page.type('input[name=lon]', '78.04209025');
       await page.click('button[type=submit]');

@@ -34,7 +34,7 @@ describe('Wrong Order Flow', function () {
       assert.ok(results_count > 1);
     });
 
-    it('select second result and navigate to bugd escription page', async function () {
+    it('select second result and navigate to bug description page', async function () {
       let results = await page.$$('#searchresults .result');
       await results[1].click();
       await page.click('div.d-flex .btn.btn-primary');
