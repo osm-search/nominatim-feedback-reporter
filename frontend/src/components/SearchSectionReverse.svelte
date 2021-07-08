@@ -1,42 +1,45 @@
 <script>
-  import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
+import { onDestroy } from 'svelte';
 
-  import { zoomLevels } from '../lib/helpers.js';
-  import { map_store, refresh_page, page } from '../lib/stores.js';
+import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
 
-  export let lat = '';
-  export let lon = '';
-  export let zoom = '';
+import { zoomLevels } from '../lib/helpers.js';
+import { map_store, refresh_page, page } from '../lib/stores.js';
 
-  $: view = $page.tab;
+export let lat = '';
+export let lon = '';
+export let zoom = '';
 
-  function gotoCoordinates(newlat, newlon, newzoom) {
-    if (newlat === null || newlon === null) return;
+$: view = $page.tab;
 
-    let params = new URLSearchParams();
-    params.set('lat', newlat);
-    params.set('lon', newlon);
-    params.set('zoom', newzoom || zoom);
-    refresh_page(view, params);
+function gotoCoordinates(newlat, newlon, newzoom) {
+  if (newlat === null || newlon === null) return;
+
+  let params = new URLSearchParams();
+  params.set('lat', newlat);
+  params.set('lon', newlon);
+  params.set('zoom', newzoom || zoom);
+  refresh_page(view, params);
+}
+
+const unsubscribe = map_store.subscribe(map => {
+  if (map) {
+    map.on('click', (e) => {
+      let coords = e.latlng.wrap();
+      gotoCoordinates(coords.lat.toFixed(5), coords.lng.toFixed(5));
+    });
   }
+});
 
-  map_store.subscribe(map => {
-    if (map) {
-      map.on('click', (e) => {
-        let coords = e.latlng.wrap();
-        gotoCoordinates(coords.lat.toFixed(5), coords.lng.toFixed(5));
-      });
-    }
-  });
-
-  // common mistake is to copy&paste latitude and longitude into the 'lat' search box
-  function maybeSplitLatitude(e) {
-    var coords_split = e.target.value.split(',');
-    if (coords_split.length === 2) {
-      document.querySelector('input[name=lat]').value = L.Util.trim(coords_split[0]);
-      document.querySelector('input[name=lon]').value = L.Util.trim(coords_split[1]);
-    }
+// common mistake is to copy&paste latitude and longitude into the 'lat' search box
+function maybeSplitLatitude(e) {
+  var coords_split = e.target.value.split(',');
+  if (coords_split.length === 2) {
+    document.querySelector('input[name=lat]').value = L.Util.trim(coords_split[0]);
+    document.querySelector('input[name=lon]').value = L.Util.trim(coords_split[1]);
   }
+}
+onDestroy(unsubscribe);
 
 </script>
 

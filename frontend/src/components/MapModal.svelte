@@ -1,6 +1,6 @@
 <script>
   import Map from '../components/Map.svelte';
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   import { map_store } from '../lib/stores.js';
   import * as L from 'leaflet';
 
@@ -10,24 +10,31 @@
   let MapModal;
   let last_click_latlng;
   let marker;
+  let unsubscribe;
 
   onMount(() => {
     MapModal.addEventListener('shown.bs.modal', function () {
       map_store.subscribe((map) => {
         if (!map) return;
         map.invalidateSize();
-
-        map.on('click', function (e) {
-          last_click_latlng = e.latlng;
-          if (marker) {
-            map.removeLayer(marker);
-          }
-          marker = L.marker(last_click_latlng);
-          marker.addTo(map);
-        });
       });
     });
   });
+
+  unsubscribe = map_store.subscribe((map) => {
+    if (!map) return;
+    map.on('click', function (e) {
+      last_click_latlng = e.latlng;
+      if (marker) {
+        map.removeLayer(marker);
+      }
+      marker = L.marker(last_click_latlng);
+      marker.addTo(map);
+    });
+  });
+  
+  
+  onDestroy(unsubscribe);
 
   function handleUpdateLocation() {
     newLocation = last_click_latlng;
