@@ -16,4 +16,11 @@ describe('Welcome/Landing Page', function () {
     let description = await page.$eval('.row h2', el => el.textContent);
     assert.ok(description.includes('Select the kind of problem'));
   });
+
+  // eslint-disable-next-line max-len
+  it('should contain 4 buttons to navigate', async function () {
+
+    let welcomeBtns = await page.$$('.welcome-btn');
+    assert.strictEqual(welcomeBtns.length, 4);
+  });
 });
