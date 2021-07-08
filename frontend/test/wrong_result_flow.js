@@ -1,13 +1,13 @@
 const assert = require('assert');
 
-describe('Wrong Information Flow', function () {
+describe('Wrong Result Flow', function () {
   let page;
 
   before(async function () {
     page = await browser.newPage();
     await page.goto('http://localhost:9999/welcome.html');
     let welcomeBtns = await page.$$('.welcome-btn');
-    await welcomeBtns[2].click();
+    await welcomeBtns[0].click();
     await page.waitForSelector('.search-section');
 
   });
@@ -31,13 +31,13 @@ describe('Wrong Information Flow', function () {
     after(async function () {
       await page.goto('http://localhost:9999/welcome.html');
       let welcomeBtns = await page.$$('.welcome-btn');
-      await welcomeBtns[2].click();
-      await page.waitForSelector('.search-section');
+      await welcomeBtns[0].click();
+      page.waitForNavigation({ waitUntil: 'networkidle2' });
     });
 
-    it('should be on Wrong Information Search page', async function () {
+    it('should be on Wrong Result Search page', async function () {
       let current_url = new URL(await page.url());
-      assert.deepStrictEqual(current_url.pathname, '/wronginfosearch.html');
+      assert.deepStrictEqual(current_url.pathname, '/wrongresultsearch.html');
     });
 
     it('should get more than 1 results', async function () {
@@ -46,19 +46,12 @@ describe('Wrong Information Flow', function () {
     });
 
     // eslint-disable-next-line max-len
-    it('select second result and navigate to verify and edit and then to bug description', async function () {
+    it('select second result and navigate to bug description', async function () {
       let results = await page.$$('#searchresults .result');
       await results[1].click();
       await page.click('div.d-flex .btn.btn-primary');
-      await page.waitForSelector('table');
-      let current_url = new URL(await page.url());
-      assert.deepStrictEqual(current_url.pathname, '/verifyedit.html');
-
-      await page.waitForSelector('td input');
-      await page.type('td input', 'London');
-      await page.click('.float-end button');
       await page.waitForSelector('.row.mb-4.mt-4 h2');
-      current_url = new URL(await page.url());
+      let current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
     });
   });
@@ -67,7 +60,8 @@ describe('Wrong Information Flow', function () {
     before(async function () {
       let welcomeBtns = await page.$$('.welcome-btn');
       await welcomeBtns[1].click();
-      await page.waitForSelector('.search-section');
+
+      await page.waitForSelector('input[name=lat]');
       await page.type('input[name=lat]', '27.1750090510034');
       await page.type('input[name=lon]', '78.04209025');
       await page.click('button[type=submit]');
@@ -75,15 +69,12 @@ describe('Wrong Information Flow', function () {
 
     after(async function () {
       await page.goto('http://localhost:9999/welcome.html');
-      let welcomeBtns = await page.$$('.welcome-btn');
-      await welcomeBtns[2].click();
-      await page.waitForSelector('.search-section');
     });
 
 
-    it('should be on Wrong Information Reverse page', async function () {
+    it('should be on Wrong Result Reverse page', async function () {
       let current_url = new URL(await page.url());
-      assert.deepStrictEqual(current_url.pathname, '/wronginforeverse.html');
+      assert.deepStrictEqual(current_url.pathname, '/wrongresultreverse.html');
     });
 
     it('should get more than 1 results', async function () {
@@ -100,46 +91,11 @@ describe('Wrong Information Flow', function () {
       let results = await page.$$('#searchresults .result');
       await results[1].click();
       await page.click('div.d-flex .btn.btn-primary');
-      await page.waitForSelector('table');
-      let current_url = new URL(await page.url());
-      assert.deepStrictEqual(current_url.pathname, '/verifyedit.html');
-
-      await page.waitForSelector('td input');
-      await page.type('td input', 'Taj');
-      await page.evaluate(()=>document.querySelector('.float-end button').click());
       await page.waitForSelector('.row.mb-4.mt-4 h2');
-      current_url = new URL(await page.url());
+      let current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
       //   let localStorage = await page.evaluate(() => localStorage.getItem('bug_data'));
       //   console.log(localStorage);
-    });
-  });
-  describe('Select SearchById option', function () {
-    before(async function () {
-      await page.type('input[type=edit]', 'W375257537');
-      await page.click('button[type=submit]');
-      await page.waitForSelector('table');
-    });
-
-    after(async function () {
-      await page.goto('http://localhost:9999/welcome.html');
-    });
-
-
-    // eslint-disable-next-line max-len
-    it('Add a Nominatim URL and navigate to verify details and then bug description', async function () {
-      let current_url = new URL(await page.url());
-      assert.deepStrictEqual(current_url.pathname, '/verifyedit.html');
-
-      await page.waitForSelector('td input');
-      await page.type('td input', 'Taj');
-      await page.evaluate(()=>document.querySelector('.float-end button').click());
-      await page.waitForSelector('.row.mb-4.mt-4 h2');
-      current_url = new URL(await page.url());
-      assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
-      //   let localStorage = await page.evaluate(() => localStorage.getItem('bug_data'));
-      //   console.log(localStorage);
-
     });
   });
 });
