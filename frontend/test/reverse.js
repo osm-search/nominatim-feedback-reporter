@@ -18,6 +18,7 @@ describe('Reverse Page', function () {
     });
 
     it('should return more than one result', async function () {
+      this.timeout(0);
       await page.waitForSelector('#searchresults');
 
       let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
@@ -25,6 +26,7 @@ describe('Reverse Page', function () {
     });
 
     it('should display a map', async function () {
+      this.timeout(0);
       await page.waitForSelector('#searchresults');
 
       await page.waitForSelector('#map');

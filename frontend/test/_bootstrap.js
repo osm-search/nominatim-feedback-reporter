@@ -64,7 +64,8 @@ Nominatim_Config.Nominatim_API_Endpoint = '${api_endpoint}';
     timeout: 10000,
     // latency: 1000,
     args: [
-      '--user-agent=Nominatim UI test suite Mozilla/5.0 Gecko/20100101 HeadlessChrome/90.0'
+      // eslint-disable-next-line max-len
+      '--user-agent=Nominatim Feedback Reporter test suite Mozilla/5.0 Gecko/20100101 HeadlessChrome/90.0'
     ]
   });
 };

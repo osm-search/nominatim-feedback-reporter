@@ -5,6 +5,7 @@ describe('Wrong Result Flow', function () {
 
   before(async function () {
     page = await browser.newPage();
+
     await page.goto('http://localhost:9999/welcome.html');
     let welcomeBtns = await page.$$('.welcome-btn');
     await welcomeBtns[0].click();
@@ -32,7 +33,7 @@ describe('Wrong Result Flow', function () {
       await page.goto('http://localhost:9999/welcome.html');
       let welcomeBtns = await page.$$('.welcome-btn');
       await welcomeBtns[0].click();
-      page.waitForNavigation({ waitUntil: 'networkidle2' });
+      page.waitForNavigation({ waitUntil: 'networkidle0' });
     });
 
     it('should be on Wrong Result Search page', async function () {
@@ -58,17 +59,22 @@ describe('Wrong Result Flow', function () {
 
   describe('Select reverse option', function () {
     before(async function () {
+      this.timeout(0);
       let welcomeBtns = await page.$$('.welcome-btn');
       await welcomeBtns[1].click();
 
       await page.waitForSelector('input[name=lat]');
       await page.type('input[name=lat]', '27.1750090510034');
       await page.type('input[name=lon]', '78.04209025');
+      await page.waitForTimeout(5000);
       await page.click('button[type=submit]');
     });
 
     after(async function () {
       await page.goto('http://localhost:9999/welcome.html');
+      let welcomeBtns = await page.$$('.welcome-btn');
+      await welcomeBtns[0].click();
+      page.waitForNavigation({ waitUntil: 'networkidle2' });
     });
 
 
@@ -78,7 +84,8 @@ describe('Wrong Result Flow', function () {
     });
 
     it('should get more than 1 results', async function () {
-      await page.waitForSelector('#searchresults');
+      this.timeout(0);
+      await page.waitForSelector('#searchresults .result');
 
       let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
       assert.ok(results_count > 1);
@@ -86,12 +93,12 @@ describe('Wrong Result Flow', function () {
 
     // eslint-disable-next-line max-len
     it('select second result and navigate to verify and edit and then to bug description', async function () {
-      await page.waitForSelector('#searchresults');
-
+      this.timeout(0);
+      await page.waitForSelector('#searchresults .result');
       let results = await page.$$('#searchresults .result');
       await results[1].click();
       await page.click('div.d-flex .btn.btn-primary');
-      await page.waitForSelector('.row.mb-4.mt-4 h2');
+      await page.waitForSelector('.row.mb-4.mt-4 h2', { timeout: 0 });
       let current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
       //   let localStorage = await page.evaluate(() => localStorage.getItem('bug_data'));

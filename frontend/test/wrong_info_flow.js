@@ -87,6 +87,7 @@ describe('Wrong Information Flow', function () {
     });
 
     it('should get more than 1 results', async function () {
+      this.timeout(0);
       await page.waitForSelector('#searchresults');
 
       let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
@@ -95,6 +96,7 @@ describe('Wrong Information Flow', function () {
 
     // eslint-disable-next-line max-len
     it('select second result and navigate to verify and edit and then to bug description', async function () {
+      this.timeout(0);
       await page.waitForSelector('#searchresults');
 
       let results = await page.$$('#searchresults .result');

@@ -1,0 +1,52 @@
+name: "Continuous Integration"
+
+on: [ push, pull_request ]
+
+jobs:
+  frontend-tests:
+
+    name: Frontend tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12.x'
+
+      - name: Install dependencies
+        run: yarn install
+        working-directory: frontend
+
+      - name: Linting
+        run: yarn lint
+        working-directory: frontend
+
+      - name: Build
+        run: yarn build
+        working-directory: frontend
+
+      - name: Testing
+        run: |
+          yarn test
+          API_ON_SAME_PORT=1 yarn test
+        working-directory: frontend
+
+  backend-tests:
+
+    name: Backend tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+        working-directory: backend
+
+      - name: Testing
+        run: pytest ./tests
+        working-directory: backend
