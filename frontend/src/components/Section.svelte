@@ -44,6 +44,6 @@
   </div>
 {:else if section_type === 'update' && update_message}
   <div id="update" class="container-fluid alert-warning py-3 px-4 text-center">
-    {update_message}
+    {@html update_message}
   </div>
 {/if}

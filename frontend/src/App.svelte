@@ -29,7 +29,7 @@
   refresh_page();
 
   // eslint-disable-next-line max-len
-  updates_store.set('This project is in active development and unfinished. Only India data is currently imported. Data gets saved but will be deleted later');
+  updates_store.set('This project is in active development and unfinished. Only India data is currently imported. Data gets saved but will be deleted later. <a href="https://github.com/darkshredder/nominatim-feedback-reporter">Link to Source Code</a>.');
 </script>
 
 <!-- deal with back-button and other user action -->
