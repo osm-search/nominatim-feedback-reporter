@@ -4,6 +4,8 @@ export const map_store = writable();
 export const results_store = writable();
 export const last_api_request_url_store = writable();
 export const error_store = writable();
+export const help_text_store = writable();
+export const updates_store = writable();
 export const page = writable();
 
 /**
@@ -27,8 +29,8 @@ const pagenames = [
   'wronginforeverse',
   'wrongresultsearch',
   'wrongresultreverse',
-  'bugdescription',
   'verifyedit',
+  'bugdescription',
   'thankyou'
 ];
 

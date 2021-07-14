@@ -37,7 +37,8 @@ describe('Wrong Order Flow', function () {
     it('select second result and navigate to bug description page', async function () {
       let results = await page.$$('#searchresults .result');
       await results[1].click();
-      await page.click('div.d-flex .btn.btn-primary');
+      // await page.click('div.d-flex .btn.btn-primary');
+      await page.evaluate(()=>document.querySelector('div.d-flex .btn.btn-primary').click());
       await page.waitForSelector('.row.mb-4.mt-4 h2');
       let current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');

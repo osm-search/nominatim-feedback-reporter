@@ -2,7 +2,13 @@
   import 'bootstrap/dist/css/bootstrap.css';
   import 'bootstrap/dist/js/bootstrap.bundle.js';
 
-  import { page, refresh_page } from './lib/stores.js';
+  import {
+    page,
+    refresh_page,
+    help_text_store,
+    updates_store
+  } from './lib/stores.js';
+  import { helpText } from './lib/page_help_text';
 
   import Footer from './components/Footer.svelte';
 
@@ -14,12 +20,16 @@
   import ReversePage from './pages/ReversePage.svelte';
   import BugDescriptionPage from './pages/BugDescriptionPage.svelte';
   import VerifyEditDetailsPage from './pages/VerifyEditDetailsPage.svelte';
-
   import ThankYouPage from './pages/ThankYouPage.svelte';
 
   $: view = $page.tab;
-
+  $: {
+    help_text_store.set(helpText[String(view)]);
+  }
   refresh_page();
+
+  // eslint-disable-next-line max-len
+  updates_store.set('This project is in active development and unfinished. Only India data is currently imported. Data gets saved but will be deleted later');
 </script>
 
 <!-- deal with back-button and other user action -->

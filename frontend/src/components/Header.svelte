@@ -1,15 +1,13 @@
 <script>
   import PageLink from './PageLink.svelte';
-  import Error from './Error.svelte';
+  import Section from './Section.svelte';
 
   import { page } from '../lib/stores.js';
 
   $: view = $page.tab;
   $: page_title = Nominatim_Config.Page_Title;
-
-
 </script>
-
+<Section section_type='update' />
 <header class="container-fluid">
   <nav class="navbar navbar-expand-sm navbar-light">
     <div class="container-fluid">
@@ -48,10 +46,11 @@
 <section class="page-title-section">
   <h2>{view}</h2>
 </section>
-<section class="search-section mb-3">
+<section class="search-section">
   <slot />
 </section>
-<Error />
+<Section section_type='error' />
+<Section section_type='help' />
 
 <style>
   .navbar-brand :global(a:hover) {

@@ -49,14 +49,15 @@ describe('Wrong Information Flow', function () {
     it('select second result and navigate to verify and edit and then to bug description', async function () {
       let results = await page.$$('#searchresults .result');
       await results[1].click();
-      await page.click('div.d-flex .btn.btn-primary');
+      // await page.click('div.d-flex .btn.btn-primary');
+      await page.evaluate(()=>document.querySelector('div.d-flex .btn.btn-primary').click());
       await page.waitForSelector('table');
       let current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/verifyedit.html');
-
       await page.waitForSelector('td input');
       await page.type('td input', 'London');
-      await page.click('.float-end button');
+      // await page.click('.float-end button');
+      await page.evaluate(()=>document.querySelector('.float-end button').click());
       await page.waitForSelector('.row.mb-4.mt-4 h2');
       current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
