@@ -2,11 +2,13 @@
   import Header from '../components/Header.svelte';
   import { getSetBugData, getBugData } from '../lib/helpers.js';
   import { refresh_page, error_store } from '../lib/stores.js';
+  import { setExtraBugData } from '../lib/api_utils';
 
   export let feedbackDescription;
 
   async function handleClick() {
     if (feedbackDescription) {
+      await setExtraBugData();
       getSetBugData('final_bug_description', feedbackDescription);
       let bugData = getBugData();
       let url = Nominatim_Config.Nominatim_Feedback_Reporter_API_Endpoint + 'bug';

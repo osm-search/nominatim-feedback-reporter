@@ -1,4 +1,5 @@
 import { last_api_request_url_store, error_store } from './stores.js';
+import { getSetObjectBugData } from './helpers';
 
 function api_request_progress(status) {
   var loading_el = document.getElementById('loading');
@@ -117,4 +118,17 @@ function generate_overpass_query(radius, lat, lon) {
   out ids;
   `;
   return query;
+}
+
+export async function setExtraBugData() {
+  await fetch_from_api('status', { format: 'json' }, function (data) {
+    let statusData = data;
+    let newData = {
+      nominatim_database_timestamp: statusData.data_updated,
+      nominatim_database_version: statusData.database_version,
+      nominatim_software_version: statusData.software_version,
+      timestamp: new Date().toISOString()
+    };
+    getSetObjectBugData(newData);
+  });
 }
