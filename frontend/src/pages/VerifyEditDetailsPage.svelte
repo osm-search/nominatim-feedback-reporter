@@ -15,6 +15,7 @@
   let api_request_params;
   let api_request_finished = false;
   let newLocation;
+  let oldLocation;
 
   function loaddata(search_params) {
     api_request_params = {
@@ -36,6 +37,11 @@
           {},
           location_details.features[0].properties.geocoding
         );
+        oldLocation = {
+          lat: location_details.features[0].geometry.coordinates[1],
+          lng: location_details.features[0].geometry.coordinates[0]
+        };
+        newLocation = Object.assign({}, oldLocation);
       });
     } else {
       location_details = undefined;
@@ -57,7 +63,10 @@
       current_geocodeing_details.osm_id
     );
     let allGeocodingProperties = geocodingProperties();
-    if (newLocation) {
+    if (
+      newLocation.lat !== oldLocation.lat
+    || newLocation.lng !== oldLocation.lng
+    ) {
       newEntries.lat = {
         expected: newLocation.lat,
         current: location_details.features[0].geometry.coordinates[1]
@@ -118,16 +127,50 @@
               </tr>
             {/if}
           {/each}
+          <tr>
+            <td>Location</td>
+            <td>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Latitude"
+                  bind:value={newLocation.lat}
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Longitude"
+                  bind:value={newLocation.lng}
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#MapModal">Open Map</button
+                >
+              </div>
+            </td>
+          </tr>
         {/if}
       </tbody>
     </table>
     <MapModal bind:newLocation />
-    <div class="float-end mt-4">
+    <div class="d-grid gap-2">
       <button
-        class="btn btn-success"
+        type="button"
+        class="btn btn-success btn-lg mt-3"
+        on:click|preventDefault|stopPropagation={handleSubmit}
+      >
+        Verified and edited details
+      </button>
+    </div>
+    <!-- <div class="float-end mt-4">
+      <button
+        class="btn btn-success btn-lg mt-3"
         on:click|preventDefault|stopPropagation={handleSubmit}
         >Verified and edited details</button
       >
-    </div>
+    </div> -->
   </div>
 </div>

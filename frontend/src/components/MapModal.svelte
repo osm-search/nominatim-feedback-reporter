@@ -41,7 +41,7 @@
   }
 </script>
 
-<div class="d-grid gap-2">
+<!-- <div class="d-grid gap-2">
   <button
     type="button"
     class="btn btn-primary btn-lg mt-3"
@@ -50,7 +50,7 @@
   >
     Update Location
   </button>
-</div>
+</div> -->
 
 <div
   class="modal fade"

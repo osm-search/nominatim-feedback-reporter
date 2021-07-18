@@ -57,7 +57,7 @@ describe('Wrong Information Flow', function () {
       await page.waitForSelector('td input');
       await page.type('td input', 'London');
       // await page.click('.float-end button');
-      await page.evaluate(()=>document.querySelector('.float-end button').click());
+      await page.evaluate(()=>document.querySelector('.d-grid button').click());
       await page.waitForSelector('.row.mb-4.mt-4 h2');
       current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
@@ -109,7 +109,7 @@ describe('Wrong Information Flow', function () {
 
       await page.waitForSelector('td input');
       await page.type('td input', 'Taj');
-      await page.evaluate(()=>document.querySelector('.float-end button').click());
+      await page.evaluate(()=>document.querySelector('.d-grid button').click());
       await page.waitForSelector('.row.mb-4.mt-4 h2');
       current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
@@ -136,7 +136,7 @@ describe('Wrong Information Flow', function () {
 
       await page.waitForSelector('td input');
       await page.type('td input', 'Taj');
-      await page.evaluate(()=>document.querySelector('.float-end button').click());
+      await page.evaluate(()=>document.querySelector('.d-grid button').click());
       await page.waitForSelector('.row.mb-4.mt-4 h2');
       current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
