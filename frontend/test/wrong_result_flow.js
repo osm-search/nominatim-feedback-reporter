@@ -72,10 +72,12 @@ describe('Wrong Result Flow', function () {
     });
 
     after(async function () {
+      this.timeout(0);
       await page.goto('http://localhost:9999/welcome.html');
       let welcomeBtns = await page.$$('.welcome-btn');
       await welcomeBtns[0].click();
       page.waitForNavigation({ waitUntil: 'networkidle2' });
+      await page.waitForTimeout(5000);
     });
 
 

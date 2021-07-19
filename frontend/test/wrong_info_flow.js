@@ -66,19 +66,23 @@ describe('Wrong Information Flow', function () {
 
   describe('Select reverse option', function () {
     before(async function () {
+      this.timeout(0);
       let welcomeBtns = await page.$$('.welcome-btn');
       await welcomeBtns[1].click();
       await page.waitForSelector('.search-section');
       await page.type('input[name=lat]', '27.1750090510034');
       await page.type('input[name=lon]', '78.04209025');
+      await page.waitForTimeout(10000);
       await page.click('button[type=submit]');
     });
 
     after(async function () {
+      this.timeout(0);
       await page.goto('http://localhost:9999/welcome.html');
       let welcomeBtns = await page.$$('.welcome-btn');
       await welcomeBtns[2].click();
       await page.waitForSelector('.search-section');
+      await page.waitForTimeout(5000);
     });
 
 
