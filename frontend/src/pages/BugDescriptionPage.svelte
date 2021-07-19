@@ -7,7 +7,7 @@
   export let feedbackDescription;
 
   async function handleClick() {
-    if (feedbackDescription) {
+    if (feedbackDescription || getBugData().feedback_type !== 'SF') {
       await setExtraBugData();
       getSetBugData('final_bug_description', feedbackDescription);
       let bugData = getBugData();
@@ -23,7 +23,6 @@
         };
         await fetch(url, config);
         refresh_page('thankyou');
-  
       } catch (error) {
         error_store.set('Cannot send data to backend');
       }

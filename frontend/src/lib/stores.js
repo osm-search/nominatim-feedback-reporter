@@ -20,6 +20,7 @@ export const page = writable();
  */
 const pagenames = [
   'welcome',
+  'home',
   'thanks',
   'about',
   'wrongresult',

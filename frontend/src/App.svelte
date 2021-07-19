@@ -6,7 +6,6 @@
     page,
     refresh_page,
     help_text_store,
-    updates_store
   } from './lib/stores.js';
   import { helpText } from './lib/page_help_text';
 
@@ -21,15 +20,13 @@
   import BugDescriptionPage from './pages/BugDescriptionPage.svelte';
   import VerifyEditDetailsPage from './pages/VerifyEditDetailsPage.svelte';
   import ThankYouPage from './pages/ThankYouPage.svelte';
+  import HomePage from './pages/HomePage.svelte';
 
   $: view = $page.tab;
   $: {
     help_text_store.set(helpText[String(view)]);
   }
   refresh_page();
-
-  // eslint-disable-next-line max-len
-  updates_store.set('This project is in active development and unfinished. Only India data is currently imported. Data gets saved but will be deleted later. <a href="https://github.com/darkshredder/nominatim-feedback-reporter">Link to Source Code</a>.');
 </script>
 
 <!-- deal with back-button and other user action -->
@@ -37,6 +34,8 @@
 
 {#if view === 'welcome'}
   <WelcomePage />
+{:else if view === 'home'}
+  <HomePage />
 {:else if view === 'about'}
   <AboutPage />
 {:else if view === 'wrongresult'}
