@@ -103,7 +103,7 @@
         if (getBugData().correct_osm_object === -1) {
           delete newEntries.query_type;
         }
-  
+
         getSetObjectBugData(newEntries);
 
         refresh_page('bugdescription');
@@ -206,6 +206,21 @@
   {#if reverse_search}
     <div id="intro" class="sidebar">
       Search for coordinates or click anywhere on the map.
+    </div>
+  {:else if view === 'wrongresultsearch'}
+    <div
+      class="noneofabove"
+      on:click|stopPropagation={handleSearchByIdClick}
+      class:highlight={iHighlightNum === -1}
+    >
+      <button class="btn btn-outline-secondary btn-sm">None of above</button>
+    </div>
+    <div class="d-flex justify-content-center mt-5">
+      <button
+        class="btn btn-primary"
+        on:click|preventDefault|stopPropagation={handleSubmit}
+        >Proceed With selected option</button
+      >
     </div>
   {:else}
     <div class="noresults">No search results found</div>
