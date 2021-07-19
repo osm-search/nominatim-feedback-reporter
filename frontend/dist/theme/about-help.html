@@ -1,13 +1,13 @@
 <h2 class="my-4">About & Help</h2>
 
 <p>
-  This website is based on <a href="https://github.com/osm-search/nominatim-ui">Nominatim UI</a>,
-  a debugging interface for the <a href="https://nominatim.org/">Nominatim</a> geocoding software.
+  This website is feedback interface for <a href="https://github.com/osm-search/nominatim-ui">Nominatim UI</a>.
 </p>
 
 <p>
-  The Nominatim API is installed at <code>Nominatim_API_Endpoint</code> and for questions you
-  should contact their administrators.
+  The frontend runs standalone as website and will request data from a separate Nominatim API
+  running on <code>Nominatim_API_Endpoint</code> and Nominatim-feedback-reporter API running on <code>Nominatim_Feedback_Reporter_API_Endpoint</code>
+  and overpass-API running on <code>Overpass_API_Endpoint</code> (configurable, see below).
 </p>
 
 <p>
@@ -16,10 +16,4 @@
   (reverse search). Each result comes with a link to a details page where you can inspect what data
   about the object is saved in the database and investigate how the address of the object has been
   computed.
-</p>
-
-
-<p class="alert alert-secondary my-4">
-  If you're the adminstrator of this website you can edit the text above in
-  <code>dist/theme/about-and-help.html</code>
 </p>

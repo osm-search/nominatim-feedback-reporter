@@ -5,7 +5,7 @@
   import {
     page,
     refresh_page,
-    help_text_store,
+    help_text_store
   } from './lib/stores.js';
   import { helpText } from './lib/page_help_text';
 
