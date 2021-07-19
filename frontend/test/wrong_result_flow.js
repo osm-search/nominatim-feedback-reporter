@@ -67,7 +67,7 @@ describe('Wrong Result Flow', function () {
       await page.waitForSelector('input[name=lat]');
       await page.type('input[name=lat]', '27.1750090510034');
       await page.type('input[name=lon]', '78.04209025');
-      await page.waitForTimeout(5000);
+      await page.waitForTimeout(10000);
       await page.click('button[type=submit]');
     });
 
