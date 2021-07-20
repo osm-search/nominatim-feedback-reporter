@@ -55,6 +55,11 @@ describe('Wrong Result Flow', function () {
       await page.waitForSelector('.row.mb-4.mt-4 h2');
       let current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
+      await page.type('.form-group textarea', 'Thanks');
+      await page.evaluate(() => document.querySelector('button.btn').click());
+      await page.waitForSelector('#thank-you');
+      current_url = new URL(await page.url());
+      assert.deepStrictEqual(current_url.pathname, '/thankyou.html');
     });
   });
 
@@ -107,6 +112,11 @@ describe('Wrong Result Flow', function () {
       assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
       //   let localStorage = await page.evaluate(() => localStorage.getItem('bug_data'));
       //   console.log(localStorage);
+      await page.type('.form-group textarea', 'Thanks');
+      await page.evaluate(() => document.querySelector('button.btn').click());
+      await page.waitForSelector('#thank-you');
+      current_url = new URL(await page.url());
+      assert.deepStrictEqual(current_url.pathname, '/thankyou.html');
     });
   });
 });

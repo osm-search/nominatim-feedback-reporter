@@ -9,6 +9,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+      
+      - name: Install dependencies and setup env
+        run: |
+          pip install -r requirements.txt
+          cp .env.example .env
+        working-directory: backend
+      
+      - name: Start backend server
+        run: gunicorn run --daemon
+        working-directory: backend
 
       - uses: actions/setup-node@v2
         with:
@@ -31,6 +45,13 @@ jobs:
           yarn test
           API_ON_SAME_PORT=1 yarn test
         working-directory: frontend
+      
+      - name: Test generated yaml file
+        run: pytest ./test_yaml_content_ci.py
+        working-directory: backend
+
+      - name: Kill gunicorn server
+        run: pkill gunicorn
 
   backend-tests:
 
