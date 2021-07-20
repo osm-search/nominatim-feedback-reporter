@@ -93,7 +93,7 @@ describe('Wrong Information Flow', function () {
 
     it('should get more than 1 results', async function () {
       this.timeout(0);
-      await page.waitForSelector('#searchresults');
+      await page.waitForSelector('#searchresults', { timeout: 0 });
 
       let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
       assert.ok(results_count > 1);
@@ -102,7 +102,7 @@ describe('Wrong Information Flow', function () {
     // eslint-disable-next-line max-len
     it('select second result and navigate to verify and edit and then to bug description', async function () {
       this.timeout(0);
-      await page.waitForSelector('#searchresults');
+      await page.waitForSelector('#searchresults', { timeout: 0 });
 
       let results = await page.$$('#searchresults .result');
       await results[1].click();
@@ -114,7 +114,7 @@ describe('Wrong Information Flow', function () {
       await page.waitForSelector('td input');
       await page.type('td input', 'Taj');
       await page.evaluate(()=>document.querySelector('.d-grid button').click());
-      await page.waitForSelector('.row.mb-4.mt-4 h2');
+      await page.waitForSelector('.row.mb-4.mt-4 h2', { timeout: 0 });
       current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
       //   let localStorage = await page.evaluate(() => localStorage.getItem('bug_data'));
@@ -141,7 +141,7 @@ describe('Wrong Information Flow', function () {
       await page.waitForSelector('td input');
       await page.type('td input', 'Taj');
       await page.evaluate(()=>document.querySelector('.d-grid button').click());
-      await page.waitForSelector('.row.mb-4.mt-4 h2');
+      await page.waitForSelector('.row.mb-4.mt-4 h2', { timeout: 0 });
       current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
       //   let localStorage = await page.evaluate(() => localStorage.getItem('bug_data'));

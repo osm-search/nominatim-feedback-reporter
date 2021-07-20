@@ -88,7 +88,7 @@ describe('Wrong Result Flow', function () {
 
     it('should get more than 1 results', async function () {
       this.timeout(0);
-      await page.waitForSelector('#searchresults .result');
+      await page.waitForSelector('#searchresults .result', { timeout: 0 });
 
       let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
       assert.ok(results_count > 1);
@@ -97,7 +97,7 @@ describe('Wrong Result Flow', function () {
     // eslint-disable-next-line max-len
     it('select second result and navigate to verify and edit and then to bug description', async function () {
       this.timeout(0);
-      await page.waitForSelector('#searchresults .result');
+      await page.waitForSelector('#searchresults .result', { timeout: 0 });
       let results = await page.$$('#searchresults .result');
       await results[1].click();
       // await page.click('div.d-flex .btn.btn-primary');

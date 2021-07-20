@@ -5,6 +5,7 @@ describe('Reverse Page', function () {
 
   describe('With search', function () {
     before(async function () {
+      this.timeout(0);
       page = await browser.newPage();
       await page.goto('http://localhost:9999/wronginforeverse.html');
       await page.waitForSelector('.search-section');
@@ -19,7 +20,7 @@ describe('Reverse Page', function () {
 
     it('should return more than one result', async function () {
       this.timeout(0);
-      await page.waitForSelector('#searchresults');
+      await page.waitForSelector('#searchresults', { timeout: 0 });
 
       let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
       assert.ok(results_count > 1);
@@ -27,7 +28,7 @@ describe('Reverse Page', function () {
 
     it('should display a map', async function () {
       this.timeout(0);
-      await page.waitForSelector('#searchresults');
+      await page.waitForSelector('#searchresults', { timeout: 0 });
 
       await page.waitForSelector('#map');
       assert.equal((await page.$$('#map')).length, 1);
