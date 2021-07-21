@@ -17,7 +17,7 @@
       if (jsonParams && redirect !== 'bugdescription') {
         let query_type = bugData.query_type;
         if (!query_type && redirect === 'wronginfo') {
-          refresh_page('verifyedit', url_params);
+          redirect = 'verifyedit';
         } else if (query_type.includes('reverse')) {
           redirect += 'reverse';
         } else if (query_type.includes('search')) {

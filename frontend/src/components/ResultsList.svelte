@@ -1,5 +1,6 @@
 <script>
   import { refresh_page, results_store } from '../lib/stores.js';
+  import { onDestroy } from 'svelte';
   import {
     formatLabel,
     getSetObjectBugData,
@@ -111,7 +112,7 @@
       refresh_page('verifyedit', url_params);
     } else if (view.includes('result') || view.includes('wrongordersearch')) {
       if (view.includes('reverse')) {
-        let newEntries = {}
+        let newEntries = {};
         // let newEntries = {
         //   query_type: 'reverse_search',
         //   lat: params.get('lat'),
@@ -177,6 +178,10 @@
       }
     }
   }
+
+  onDestroy(()=>{
+    results_store.set([]);
+  });
 </script>
 
 {#if aSearchResults && aSearchResults.length > 0}
