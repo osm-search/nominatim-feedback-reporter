@@ -62,6 +62,41 @@
     iHighlightNum = -1;
   }
 
+  function handleWantToReportFeedback() {
+    let newEntries = {};
+
+    if (view === 'search') {
+      if (params.get('q') != null) {
+        newEntries = {
+          query_type: 'simple_search',
+          query: params.get('q')
+        };
+        newEntries.extra_params = Object.fromEntries(params);
+        delete newEntries.extra_params.q;
+      } else {
+        newEntries = {
+          query_type: 'structured_search',
+          structured_query: Object.fromEntries(params)
+        };
+      }
+    } else if (view === 'reverse') {
+      newEntries = {
+        query_type: 'reverse_search',
+        lat: params.get('lat'),
+        lon: params.get('lon'),
+        zoom: params.get('zoom')
+      };
+    }
+    getSetObjectBugData(newEntries);
+    let search_params = new URLSearchParams(window.location.search);
+
+    localStorage.setItem(
+      'params',
+      JSON.stringify(Object.fromEntries(search_params))
+    );
+    refresh_page('welcome');
+  }
+
   function handleSubmit() {
     console.log('Proceed With selected option CLICKED');
     let url_params = new URLSearchParams();
@@ -76,12 +111,13 @@
       refresh_page('verifyedit', url_params);
     } else if (view.includes('result') || view.includes('wrongordersearch')) {
       if (view.includes('reverse')) {
-        let newEntries = {
-          query_type: 'reverse_search',
-          lat: params.get('lat'),
-          lon: params.get('lon'),
-          zoom: params.get('zoom')
-        };
+        let newEntries = {}
+        // let newEntries = {
+        //   query_type: 'reverse_search',
+        //   lat: params.get('lat'),
+        //   lon: params.get('lon'),
+        //   zoom: params.get('zoom')
+        // };
 
         if (iHighlightNum >= 0) {
           newEntries.correct_osm_object = formatOSMTypeId(
@@ -108,21 +144,21 @@
 
         refresh_page('bugdescription');
       } else if (view.includes('search')) {
-        let newEntries;
+        let newEntries = {};
 
-        if (params.get('q') != null) {
-          newEntries = {
-            query_type: 'simple_search',
-            query: params.get('q')
-          };
-          newEntries.extra_params = Object.fromEntries(params);
-          delete newEntries.extra_params.q;
-        } else {
-          newEntries = {
-            query_type: 'structured_search',
-            structured_query: Object.fromEntries(params)
-          };
-        }
+        // if (params.get('q') != null) {
+        //   newEntries = {
+        //     query_type: 'simple_search',
+        //     query: params.get('q')
+        //   };
+        //   newEntries.extra_params = Object.fromEntries(params);
+        //   delete newEntries.extra_params.q;
+        // } else {
+        //   newEntries = {
+        //     query_type: 'structured_search',
+        //     structured_query: Object.fromEntries(params)
+        //   };
+        // }
 
         if (iHighlightNum >= 0) {
           newEntries.correct_osm_object = formatOSMTypeId(
@@ -189,19 +225,30 @@
       </div>
     {/if}
 
-    {#if sMoreURL && !reverse_search}
+    {#if sMoreURL && !reverse_search && view !== 'details'}
       <div class="more">
         <a class="btn btn-primary" href={sMoreURL}> Search for more results </a>
       </div>
     {/if}
   </div>
-  <div class="d-flex justify-content-center mt-5">
-    <button
-      class="btn btn-primary"
-      on:click|preventDefault|stopPropagation={handleSubmit}
-      >Proceed With selected option</button
-    >
-  </div>
+
+  {#if view !== 'search' && view !== 'reverse' && view !== 'details'}
+    <div class="d-flex justify-content-center mt-5">
+      <button
+        class="btn btn-primary"
+        on:click|preventDefault|stopPropagation={handleSubmit}
+        >Proceed With selected option</button
+      >
+    </div>
+  {:else}
+    <div class="d-flex justify-content-center mt-5">
+      <button
+        class="btn btn-primary"
+        on:click|preventDefault|stopPropagation={handleWantToReportFeedback}
+        >Want to report a feedback for the result?</button
+      >
+    </div>
+  {/if}
 {:else if aSearchResults}
   {#if reverse_search}
     <div id="intro" class="sidebar">
@@ -224,6 +271,15 @@
     </div>
   {:else}
     <div class="noresults">No search results found</div>
+    {#if view === 'details'}
+      <div class="d-flex justify-content-center mt-5">
+        <button
+          class="btn btn-primary"
+          on:click|preventDefault|stopPropagation={handleWantToReportFeedback}
+          >Want to report a feedback for the result?</button
+        >
+      </div>
+    {/if}
   {/if}
 {:else}
   <Welcome />

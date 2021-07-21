@@ -188,7 +188,7 @@ function getSetBugData(key, value) {
   bug_data[key] = value;
 
   localStorage.setItem('bug_data', JSON.stringify(bug_data));
-  return localStorage.getItem('bug_data');
+  return JSON.parse(localStorage.getItem('bug_data'));
 }
 
 function getSetObjectBugData(data) {
@@ -196,7 +196,7 @@ function getSetObjectBugData(data) {
   bug_data = Object.assign(bug_data, data);
 
   localStorage.setItem('bug_data', JSON.stringify(bug_data));
-  return localStorage.getItem('bug_data');
+  return JSON.parse(localStorage.getItem('bug_data'));
 }
 
 function getBugData() {

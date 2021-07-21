@@ -7,11 +7,26 @@
   export let redirect;
 
   function handleClick() {
+    let bugData;
     if (feedbackType) {
-      getSetBugData('feedback_type', feedbackType);
+      bugData = getSetBugData('feedback_type', feedbackType);
     }
     if (redirect) {
-      refresh_page(redirect);
+      let jsonParams = JSON.parse(localStorage.getItem('params'));
+      let url_params = new URLSearchParams(jsonParams);
+      if (jsonParams && redirect !== 'bugdescription') {
+        let query_type = bugData.query_type;
+        if (!query_type && redirect === 'wronginfo') {
+          refresh_page('verifyedit', url_params);
+        } else if (query_type.includes('reverse')) {
+          redirect += 'reverse';
+        } else if (query_type.includes('search')) {
+          redirect += 'search';
+        }
+        refresh_page(redirect, url_params);
+      } else {
+        refresh_page(redirect);
+      }
     }
   }
 </script>

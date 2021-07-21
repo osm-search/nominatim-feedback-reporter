@@ -2,11 +2,7 @@
   import 'bootstrap/dist/css/bootstrap.css';
   import 'bootstrap/dist/js/bootstrap.bundle.js';
 
-  import {
-    page,
-    refresh_page,
-    help_text_store
-  } from './lib/stores.js';
+  import { page, refresh_page, help_text_store } from './lib/stores.js';
   import { helpText } from './lib/page_help_text';
 
   import Footer from './components/Footer.svelte';
@@ -21,6 +17,7 @@
   import VerifyEditDetailsPage from './pages/VerifyEditDetailsPage.svelte';
   import ThankYouPage from './pages/ThankYouPage.svelte';
   import HomePage from './pages/HomePage.svelte';
+  import DetailsPage from './pages/DetailsPage.svelte';
 
   $: view = $page.tab;
   $: {
@@ -31,9 +28,14 @@
 
 <!-- deal with back-button and other user action -->
 <svelte:window on:popstate={() => refresh_page()} />
-
 {#if view === 'welcome'}
   <WelcomePage />
+{:else if view === 'search'}
+  <SearchPage />
+{:else if view === 'reverse'}
+  <ReversePage />
+{:else if view === 'details'}
+  <DetailsPage />
 {:else if view === 'home'}
   <HomePage />
 {:else if view === 'about'}
