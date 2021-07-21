@@ -1,19 +1,30 @@
 <script>
   import PageLink from './PageLink.svelte';
   import Section from './Section.svelte';
+  import ReverseLink from './ReverseLink.svelte';
 
-  import { page } from '../lib/stores.js';
+  import { map_store, page } from '../lib/stores.js';
 
   $: view = $page.tab;
   $: page_title = Nominatim_Config.Page_Title;
+  let map_lat;
+  let map_lon;
+  map_store.subscribe((map) => {
+    if (!map) return;
+    map.on('move', function () {
+      map_lat = map.getCenter().lat;
+      map_lon = map.getCenter().lng;
+    });
+  });
 </script>
-<Section section_type='update' />
+
+<Section section_type="update" />
 <header class="container-fluid">
   <nav class="navbar navbar-expand-sm navbar-light">
     <div class="container-fluid">
       <!-- Brand -->
       <div class="navbar-brand">
-        <PageLink page="welcome">
+        <PageLink page="search">
           <img alt="logo" id="theme-logo" src="theme/logo.png" />
           <h1>{page_title}</h1>
         </PageLink>
@@ -30,6 +41,35 @@
       >
         <span class="navbar-toggler-icon" />
       </button>
+      {#if view === 'search' || view === 'reverse' || view === 'details'}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Left-aligned links -->
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <PageLink
+                page="search"
+                extra_classes="nav-link {view === 'search' ? 'active' : ''}"
+                >Search</PageLink
+              >
+            </li>
+            <li class="nav-item">
+              <ReverseLink
+                lat={map_lat}
+                lon={map_lon}
+                extra_classes="nav-link {view === 'reverse' ? 'active' : ''}"
+                >Reverse</ReverseLink
+              >
+            </li>
+            <li class="nav-item">
+              <PageLink
+                page="details"
+                extra_classes="nav-link {view === 'details' ? 'active' : ''}"
+                >Search By ID</PageLink
+              >
+            </li>
+          </ul>
+        </div>
+      {/if}
       <!-- Right aligned links -->
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -49,8 +89,8 @@
 <section class="search-section">
   <slot />
 </section>
-<Section section_type='error' />
-<Section section_type='help' />
+<Section section_type="error" />
+<Section section_type="help" />
 
 <style>
   .navbar-brand :global(a:hover) {

@@ -6,10 +6,14 @@
   import SearchSection from '../components/SearchSection.svelte';
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
+  import { onMount } from 'svelte';
 
   let api_request_params;
   let bStructuredSearch;
   let current_result;
+
+  $: view = $page.tab;
+
 
   function loaddata(search_params) {
     update_html_title();
@@ -65,6 +69,11 @@
       loaddata(pageinfo.params);
     }
   }
+  onMount(() => {
+    if (view === 'search') {
+      localStorage.clear('bug_data');
+    }
+  });
 </script>
 
 <Header>

@@ -16,6 +16,8 @@
   let current_result;
   let position_marker; // what the user searched for
 
+  $: view = $page.tab;
+
   function loaddata(search_params) {
     update_html_title();
 
@@ -35,7 +37,7 @@
         if (data && !data.error) {
           let all_data = [data];
           let revese_osm_type_id = formatOSMTypeId(data.osm_type, data.osm_id);
-          if (api_request_params.zoom > 13) {
+          if (api_request_params.zoom > 13 && view !== 'reverse') {
             let osm_ids = [];
             position_marker = [api_request_params.lat, api_request_params.lon];
             await fetch_from_overpass_api(
@@ -61,7 +63,6 @@
               }
             );
           }
-
           results_store.set(all_data);
         } else {
           results_store.set([]);

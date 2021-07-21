@@ -19,5 +19,11 @@ export const helpText = {
   verifyedit:
     'On this page edit the information which is wrong, you can also change the location by clicking on Update Location button. After changing information click on "Verified and edited details" button',
   bugdescription:
-    'On this page you need to add the the description of the feedback and then click on "Submit Feedback Report" button'
+    'On this page you need to add the the description of the feedback and then click on "Submit Feedback Report" button',
+  search:
+    'On this page you need to search just like nominatim-ui where you found your bug',
+  reverse:
+    'On this page you need to reverse-search just like nominatim-ui where you found your bug',
+  details:
+    'On this page you need to add a osm_id + osm_type or osm URL just like nominatim-ui where you found your bug'
 };
