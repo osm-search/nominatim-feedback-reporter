@@ -8,6 +8,7 @@
   function loaddata() {
     update_html_title('Welcome');
     localStorage.clear('bug_data');
+    localStorage.clear('params');
   }
   onMount(loaddata);
 </script>
@@ -18,6 +19,6 @@
     <h2>Welcome to Nominatim Feedback Reporter</h2>
   </div>
   <div class="container">
-    <WelcomeBtn text="Start Searching" redirect="welcome" />
+    <WelcomeBtn text="Start Searching" redirect="search" />
   </div>
 </div>

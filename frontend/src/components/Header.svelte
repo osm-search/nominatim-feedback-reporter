@@ -24,7 +24,7 @@
     <div class="container-fluid">
       <!-- Brand -->
       <div class="navbar-brand">
-        <PageLink page="search">
+        <PageLink page="home">
           <img alt="logo" id="theme-logo" src="theme/logo.png" />
           <h1>{page_title}</h1>
         </PageLink>

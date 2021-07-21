@@ -180,7 +180,7 @@
   }
 
   onDestroy(()=>{
-    results_store.set([]);
+    results_store.set(undefined);
   });
 </script>
 

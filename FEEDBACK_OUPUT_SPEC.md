@@ -37,6 +37,15 @@ files described here are not exclusive.
   structured_query:
     city: Lucknow
 
+# OPTIONAL. Only used with reverse search without wrong information.
+  lat: 19.597222
+
+# OPTIONAL. Only used with reverse search wrong information.
+  lon: 78.7629819
+
+# OPTIONAL. Only used with reverse search.
+  zoom: 18
+
 # OPTIONAL. Only used when wrong information.
 # There can be other fields from one of these "name", "housenumber", "street", "locality", "city", "district", "county", "state", "country", "postcode", "lat", "lon".
   city:

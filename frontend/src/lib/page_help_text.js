@@ -1,29 +1,31 @@
 /* eslint-disable max-len */
 export const helpText = {
-  welcome:
-    'On this page you have to select the best possible option for the issue you are facing',
-  wrongresult:
-    'On this page select the option through which you got wrong result for your query',
-  wronginfo:
-    'On this page select the option through which you want to search the map data or OSM object',
-  wrongordersearch:
-    'On this page enter your query in the search textbox, hit search button, Select your desired result and click on "Proceed with selected option"',
-  wronginfosearch:
-    'On this page enter your query in the search textbox, hit search button, Select your desired result and click on "Proceed with selected option"',
-  wronginforeverse:
-    'On this page you can select a location by clicking on map or adding latitude and longitude in textbox with desired zoom level then hitting search button, After this Select your desired result and click on "Proceed with selected option"',
-  wrongresultsearch:
-    'On this page enter your query in the search textbox, hit search button, Select your desired result or "None of above" if result is not present and click on "Proceed with selected option"',
-  wrongresultreverse:
-    'On this page you can select a location by clicking on map or adding latitude and longitude in textbox with desired zoom level then hitting search button, After this Select your desired result or add OpenStreetMap URL or osm_type + osm_id example N123 and click on "Proceed with selected option"',
-  verifyedit:
-    'On this page edit the information which is wrong, you can also change the location by clicking on Update Location button. After changing information click on "Verified and edited details" button',
-  bugdescription:
-    'On this page you need to add the the description of the feedback and then click on "Submit Feedback Report" button',
+  home:
+    'Click on Start Searching button to start reporting feedback for your undesired results.',
   search:
-    'On this page you need to search just like nominatim-ui where you found your bug',
+    'Can you search what you actually searched where you were facing issues and then select "Want to report a feedback for the result?" after clicking on search button or you can switch tabs by clicking on above navbar links.',
   reverse:
-    'On this page you need to reverse-search just like nominatim-ui where you found your bug',
+    'Can you do a reverse search by clicking on the map or typing latitude and longitude of the location where you are facing issues and then select "Want to report a feedback for the result?" after clicking on search button if you typed lat and lon or you can switch tabs by clicking on above navbar links.',
   details:
-    'On this page you need to add a osm_id + osm_type or osm URL just like nominatim-ui where you found your bug'
+    'Can you add a osm_type + osm_id or OSM URL as mentioned in text box for the location where you are facing issues and then select "Want to report a feedback for the result?" after clicking on search button or you can switch tabs by clicking on above navbar links.',
+  welcome:
+    'Please select the best possible option for the issue you are facing.',
+  wrongresult:
+    'On this page select the option through which you got wrong result for your query.',
+  wronginfo:
+    'On this page select the option through which you want to search the map data or OSM object.',
+  wrongordersearch:
+    'So the results are in the wrong order. Can you please point out which one of the results you expect to be in the fist place? click on "Proceed with selected option" after you find one.',
+  wronginfosearch:
+    'So the information is wrong for you searched query. Can you please point out which one of the results you expect to be corrected? and click on "Proceed with selected option".',
+  wronginforeverse:
+    'So the information is wrong for you reverse query. Can you please point out which one of the results you expect to be corrected? and click on "Proceed with selected option".',
+  wrongresultsearch:
+    'So the result shown is wrong. Can you please point out which one of the results you expect is correct? or select "None of above" if result is not present here and click on "Proceed with selected option".',
+  wrongresultreverse:
+    'Since the result is wrong. Can you please reverse search by clicking on the map or typing latitude and longitude of the location and hitting search button. After this Select your desired result or add OpenStreetMap URL or osm_type + osm_id example N123 if result is not present and then click on "Proceed with selected option".',
+  verifyedit:
+    'Since the information was wrong for the result. Can you please correct the information by editing on text box. If the location was wrong click on Open Map and select the correct location. After this click on "Verified and edited details" button.',
+  bugdescription:
+    'Can you please add a description of the feedback that you want to submit and then click on "Submit Feedback Report" button.'
 };
