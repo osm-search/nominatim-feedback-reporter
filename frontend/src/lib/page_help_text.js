@@ -8,7 +8,7 @@ export const helpText = {
     'Can you do a reverse search by clicking on the map or typing latitude and longitude of the location where you are facing issues and then select "Want to report a feedback for the result?" after clicking on search button if you typed lat and lon or you can switch tabs by clicking on above navbar links.',
   details:
     'Can you add a osm_type + osm_id or OSM URL as mentioned in text box for the location where you are facing issues and then select "Want to report a feedback for the result?" after clicking on search button or you can switch tabs by clicking on above navbar links.',
-  welcome:
+  selecttype:
     'Please select the best possible option for the issue you are facing.',
   wrongresult:
     'On this page select the option through which you got wrong result for your query.',

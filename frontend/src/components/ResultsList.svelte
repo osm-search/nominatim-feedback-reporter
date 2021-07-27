@@ -95,7 +95,7 @@
       'params',
       JSON.stringify(Object.fromEntries(search_params))
     );
-    refresh_page('welcome');
+    refresh_page('selecttype');
   }
 
   function handleSubmit() {
@@ -179,7 +179,7 @@
     }
   }
 
-  onDestroy(()=>{
+  onDestroy(() => {
     results_store.set(undefined);
   });
 </script>
@@ -248,7 +248,7 @@
   {:else}
     <div class="d-flex justify-content-center mt-5">
       <button
-        class="btn btn-primary"
+        class="btn btn-orange"
         on:click|preventDefault|stopPropagation={handleWantToReportFeedback}
         >Want to report a feedback for the result?</button
       >
@@ -279,7 +279,7 @@
     {#if view === 'details'}
       <div class="d-flex justify-content-center mt-5">
         <button
-          class="btn btn-primary"
+          class="btn btn-orange"
           on:click|preventDefault|stopPropagation={handleWantToReportFeedback}
           >Want to report a feedback for the result?</button
         >
@@ -367,5 +367,11 @@
   }
   .noneofabove button:hover {
     color: rgb(73, 71, 71);
+  }
+  .btn-orange {
+    background-color: rgb(253, 160, 15);
+  }
+  .btn-orange:hover{
+    background-color: rgb(250, 148, 14);
   }
 </style>

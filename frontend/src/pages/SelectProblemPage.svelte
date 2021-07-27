@@ -9,7 +9,7 @@
   let query_type = null;
 
   function loaddata() {
-    update_html_title('Welcome');
+    update_html_title('selecttype');
     let bugData = getBugData();
     query_type = bugData.query_type;
     // localStorage.clear('bug_data');

@@ -46,8 +46,10 @@ jobs:
           API_ON_SAME_PORT=1 yarn test
         working-directory: frontend
       
-      - name: Test generated yaml file
-        run: pytest ./test_yaml_content_ci.py
+      - name: export generated report to csv and test generated report and generated csv files
+        run: |
+          python ./export_to_csv.py
+          pytest ./test_ci.py
         working-directory: backend
 
       - name: Kill gunicorn server

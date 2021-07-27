@@ -12,7 +12,7 @@
     // fetch_from_api('status', { format: 'json' }, function (data) {
     //   aStatusData = data;
     // });
-    update_html_title('Welcome');
+    update_html_title('selecttype');
   }
   onMount(loaddata);
 </script>

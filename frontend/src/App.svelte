@@ -7,7 +7,7 @@
 
   import Footer from './components/Footer.svelte';
 
-  import WelcomePage from './pages/WelcomePage.svelte';
+  import SelectProblemPage from './pages/SelectProblemPage.svelte';
   import WrongResult from './pages/WrongResult.svelte';
   import WrongInfo from './pages/WrongInfo.svelte';
   import AboutPage from './pages/AboutPage.svelte';
@@ -28,8 +28,8 @@
 
 <!-- deal with back-button and other user action -->
 <svelte:window on:popstate={() => refresh_page()} />
-{#if view === 'welcome'}
-  <WelcomePage />
+{#if view === 'selecttype'}
+  <SelectProblemPage />
 {:else if view === 'search'}
   <SearchPage />
 {:else if view === 'reverse'}

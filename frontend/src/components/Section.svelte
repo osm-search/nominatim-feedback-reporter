@@ -39,7 +39,11 @@
     />
   </div>
 {:else if section_type === 'help' && help_message}
-  <div id="help" class="container-fluid alert-info py-3 px-4 mb-3">
+  <div
+    id="help"
+    class="container-fluid py-3 px-4 mb-3"
+    style="background-color: #fda00f"
+  >
     {help_message}
   </div>
 {:else if section_type === 'update' && update_message}

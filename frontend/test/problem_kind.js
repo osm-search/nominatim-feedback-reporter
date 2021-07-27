@@ -5,7 +5,7 @@ describe('Kind of problem Page', function () {
 
   before(async function () {
     page = await browser.newPage();
-    await page.goto('http://localhost:9999/welcome.html');
+    await page.goto('http://localhost:9999/selecttype.html');
   });
 
   after(async function () {

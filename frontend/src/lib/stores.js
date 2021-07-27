@@ -19,7 +19,7 @@ export const page = writable();
  * link without query parameters.
  */
 const pagenames = [
-  'welcome',
+  'selecttype',
   'search',
   'reverse',
   'details',
