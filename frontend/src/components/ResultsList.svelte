@@ -40,7 +40,11 @@
       aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
     }
     for (var i = 0; i < aResults.length; i += 1) {
-      aExcludePlaceIds.push(aResults[i].place_id);
+      aExcludePlaceIds.push(
+        aResults[i].properties
+          ? aResults[i].properties.geocoding.place_id
+          : aResults[i].place_id
+      );
     }
     var parsed_url = new URLSearchParams(window.location.search);
     parsed_url.set('exclude_place_ids', aExcludePlaceIds.join(','));
@@ -283,7 +287,7 @@
       </div>
     {/if}
 
-    {#if sMoreURL && !reverse_search && view !== 'details'}
+    {#if sMoreURL && !reverse_search && view !== 'details' && view === 'wrongordersearch'}
       <div class="more">
         <a class="btn btn-primary" href={sMoreURL}> Search for more results </a>
       </div>
