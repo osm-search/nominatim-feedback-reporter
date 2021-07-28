@@ -35,6 +35,7 @@ const pagenames = [
   'wrongresultreverse',
   'verifyedit',
   'bugdescription',
+  'review',
   'thankyou'
 ];
 

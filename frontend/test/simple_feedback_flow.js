@@ -23,6 +23,11 @@ describe('Simple Feedback Flow', function () {
     assert.deepStrictEqual(current_url.pathname, '/bugdescription.html');
     await page.type('.form-group textarea', 'Thanks');
     await page.evaluate(() => document.querySelector('button.btn').click());
+    await page.waitForSelector('table');
+    current_url = new URL(await page.url());
+    assert.deepStrictEqual(current_url.pathname, '/review.html');
+    await page.waitForSelector('td input');
+    await page.evaluate(() => document.querySelector('.d-grid button').click());
     await page.waitForSelector('#thank-you');
     current_url = new URL(await page.url());
     assert.deepStrictEqual(current_url.pathname, '/thankyou.html');

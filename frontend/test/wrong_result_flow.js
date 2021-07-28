@@ -76,7 +76,7 @@ describe('Wrong Result Flow', function () {
           it('select second result and navigate to bug description and then submit feedback report', async function () {
             let results = await page.$$('#searchresults .result');
             await results[1].click();
-            await page.evaluate(() => document.querySelector('div.d-flex .btn.btn-primary').click());
+            await page.evaluate(() => document.querySelectorAll('.result button')[1].click());
             await page.waitForSelector('.row.mb-4.mt-4 h2');
             let current_url = new URL(await page.url());
             assert.deepStrictEqual(
@@ -85,6 +85,11 @@ describe('Wrong Result Flow', function () {
             );
             await page.type('.form-group textarea', 'Thanks');
             await page.evaluate(() => document.querySelector('button.btn').click());
+            await page.waitForSelector('table');
+            current_url = new URL(await page.url());
+            assert.deepStrictEqual(current_url.pathname, '/review.html');
+            await page.waitForSelector('td input');
+            await page.evaluate(() => document.querySelector('.d-grid button').click());
             await page.waitForSelector('#thank-you');
             current_url = new URL(await page.url());
             assert.deepStrictEqual(current_url.pathname, '/thankyou.html');
@@ -180,7 +185,7 @@ describe('Wrong Result Flow', function () {
 
             let results = await page.$$('#searchresults .result');
             await results[1].click();
-            await page.click('div.d-flex .btn.btn-primary');
+            await page.evaluate(() => document.querySelectorAll('.result button')[1].click());
             await page.waitForSelector('.row.mb-4.mt-4 h2', { timeout: 0 });
             let current_url = new URL(await page.url());
             assert.deepStrictEqual(
@@ -189,6 +194,11 @@ describe('Wrong Result Flow', function () {
             );
             await page.type('.form-group textarea', 'Thanks');
             await page.evaluate(() => document.querySelector('button.btn').click());
+            await page.waitForSelector('table');
+            current_url = new URL(await page.url());
+            assert.deepStrictEqual(current_url.pathname, '/review.html');
+            await page.waitForSelector('td input');
+            await page.evaluate(() => document.querySelector('.d-grid button').click());
             await page.waitForSelector('#thank-you');
             current_url = new URL(await page.url());
             assert.deepStrictEqual(current_url.pathname, '/thankyou.html');

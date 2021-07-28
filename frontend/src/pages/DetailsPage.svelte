@@ -20,7 +20,8 @@
       osmtype: search_params.get('osmtype'),
       osmid: search_params.get('osmid'),
       polygon_geojson: 1,
-      format: 'json',
+      format: 'geocodejson',
+      addressdetails: 1,
       osm_ids: formatOSMTypeId(
         search_params.get('osmtype'),
         search_params.get('osmid')
@@ -36,10 +37,11 @@
         {
           osm_ids: search_params.get('osmtype') + search_params.get('osmid'),
           polygon_geojson: 1,
-          format: 'json'
+          format: 'geocodejson',
+          addressdetails: 1
         },
         function (data) {
-          results_store.set(data);
+          results_store.set(data.features ? data.features : data);
           window.scrollTo(0, 0);
           api_request_finished = true;
           aPlace = data && !data.error ? data : undefined;

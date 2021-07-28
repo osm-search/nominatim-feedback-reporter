@@ -10,22 +10,8 @@
     if (feedbackDescription || getBugData().feedback_type !== 'SF') {
       await setExtraBugData();
       getSetBugData('final_bug_description', feedbackDescription);
-      let bugData = getBugData();
-      let url = Nominatim_Config.Nominatim_Feedback_Reporter_API_Endpoint + 'bug';
-      try {
-        const config = {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(bugData)
-        };
-        await fetch(url, config);
-        refresh_page('thankyou');
-      } catch (error) {
-        error_store.set('Cannot send data to backend');
-      }
+
+      refresh_page('review');
     } else {
       error_store.set('You need to add a feedback description');
     }
@@ -49,7 +35,7 @@
         />
         <div class="float-end mt-3">
           <button type="submit" class="btn btn-success">
-            Submit Feedback Report
+            Review and Submit Feedback Report
           </button>
         </div>
       </div>

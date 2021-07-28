@@ -10,7 +10,7 @@
   import { page } from '../lib/stores.js';
 
   import Welcome from './Welcome.svelte';
-  import MapIcon from './MapIcon.svelte';
+  // import MapIcon from './MapIcon.svelte';
 
   export let reverse_search = false;
   export let current_result = null;
@@ -63,6 +63,12 @@
     iHighlightNum = -1;
   }
 
+  function handleNoneOfAbove() {
+    current_result = null;
+    iHighlightNum = -1;
+    handleSubmit();
+  }
+
   function handleWantToReportFeedback() {
     let newEntries = {};
 
@@ -101,13 +107,23 @@
   function handleSubmit() {
     console.log('Proceed With selected option CLICKED');
     let url_params = new URLSearchParams();
+    getSetObjectBugData({ selected_osm_data: aSearchResults[iHighlightNum] });
 
     if (view.includes('info')) {
       url_params.set(
         'osmtype',
-        aSearchResults[iHighlightNum].osm_type[0].toUpperCase()
+        aSearchResults[iHighlightNum].properties
+          ? aSearchResults[
+            iHighlightNum
+          ].properties.geocoding.osm_type[0].toUpperCase()
+          : aSearchResults[iHighlightNum].osm_type[0].toUpperCase()
       );
-      url_params.set('osmid', aSearchResults[iHighlightNum].osm_id);
+      url_params.set(
+        'osmid',
+        aSearchResults[iHighlightNum].properties
+          ? aSearchResults[iHighlightNum].properties.geocoding.osm_id
+          : aSearchResults[iHighlightNum].osm_id
+      );
 
       refresh_page('verifyedit', url_params);
     } else if (view.includes('result') || view.includes('wrongordersearch')) {
@@ -122,8 +138,12 @@
 
         if (iHighlightNum >= 0) {
           newEntries.correct_osm_object = formatOSMTypeId(
-            current_result.osm_type,
-            current_result.osm_id
+            current_result.properties
+              ? current_result.properties.geocoding.osm_type
+              : current_result.osm_type,
+            current_result.properties
+              ? current_result.properties.geocoding.osm_id
+              : current_result.osm_id
           );
         } else {
           let val = searchByIdText;
@@ -163,9 +183,14 @@
 
         if (iHighlightNum >= 0) {
           newEntries.correct_osm_object = formatOSMTypeId(
-            current_result.osm_type,
-            current_result.osm_id
+            current_result.properties
+              ? current_result.properties.geocoding.osm_type
+              : current_result.osm_type,
+            current_result.properties
+              ? current_result.properties.geocoding.osm_id
+              : current_result.osm_id
           );
+
           getSetObjectBugData(newEntries);
 
           refresh_page('bugdescription');
@@ -193,12 +218,31 @@
         data-position={iResNum}
         on:click|stopPropagation={handleClick}
       >
-        <div style="float:right">
+        <!-- <div style="float:right">
           <MapIcon aPlace={aResult} />
-        </div>
-        <span class="name">{aResult.display_name}</span>
-        <span class="type">{formatLabel(aResult)}</span>
+        </div> -->
+        <span class="name"
+          >{aResult.properties.geocoding
+            ? aResult.properties.geocoding.label
+            : aResult.display_name}</span
+        >
+        <span class="type"
+          >{formatLabel(
+            aResult.properties.geocoding
+              ? aResult.properties.geocoding
+              : aResult
+          )}</span
+        >
         <p class="coords">{aResult.lat},{aResult.lon}</p>
+        {#if view !== 'search' && view !== 'reverse' && view !== 'details'}
+          <span class="selected">Selected</span>
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            on:click|preventDefault|stopPropagation={handleSubmit}
+          >
+            Select this option</button
+          >
+        {/if}
       </div>
     {/each}
     {#if view === 'wrongresultsearch'}
@@ -207,7 +251,11 @@
         on:click|stopPropagation={handleSearchByIdClick}
         class:highlight={iHighlightNum === -1}
       >
-        <button class="btn btn-outline-secondary btn-sm">None of above</button>
+        <button
+          class="btn btn-outline-secondary btn-sm"
+          on:click|preventDefault|stopPropagation={handleNoneOfAbove}
+          >None of above</button
+        >
       </div>
     {/if}
     {#if view === 'wrongresultreverse'}
@@ -225,6 +273,11 @@
               pattern="^[NWRnwr]?[0-9]+$|.*openstreetmap.*"
               placeholder="Search by Id or Nominatim URL"
             />
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              on:click|preventDefault|stopPropagation={handleNoneOfAbove}
+              >Use searchById</button
+            >
           </div>
         </div>
       </div>
@@ -238,13 +291,13 @@
   </div>
 
   {#if view !== 'search' && view !== 'reverse' && view !== 'details'}
-    <div class="d-flex justify-content-center mt-5">
+    <!-- <div class="d-flex justify-content-center mt-5">
       <button
         class="btn btn-primary"
         on:click|preventDefault|stopPropagation={handleSubmit}
         >Proceed With selected option</button
       >
-    </div>
+    </div> -->
   {:else}
     <div class="d-flex justify-content-center mt-5">
       <button
@@ -259,24 +312,37 @@
     <div id="intro" class="sidebar">
       Search for coordinates or click anywhere on the map.
     </div>
+    {#if view === 'reverse'}
+      <div class="d-flex justify-content-center mt-5">
+        <button
+          class="btn btn-orange"
+          on:click|preventDefault|stopPropagation={handleWantToReportFeedback}
+          >Want to report a feedback for the result?</button
+        >
+      </div>
+    {/if}
   {:else if view === 'wrongresultsearch'}
     <div
       class="noneofabove"
       on:click|stopPropagation={handleSearchByIdClick}
       class:highlight={iHighlightNum === -1}
     >
-      <button class="btn btn-outline-secondary btn-sm">None of above</button>
+      <button
+        class="btn btn-outline-secondary btn-sm"
+        on:click|preventDefault|stopPropagation={handleNoneOfAbove}
+        >None of above</button
+      >
     </div>
-    <div class="d-flex justify-content-center mt-5">
+    <!-- <div class="d-flex justify-content-center mt-5">
       <button
         class="btn btn-primary"
         on:click|preventDefault|stopPropagation={handleSubmit}
         >Proceed With selected option</button
       >
-    </div>
+    </div> -->
   {:else}
     <div class="noresults">No search results found</div>
-    {#if view === 'details'}
+    {#if view === 'details' || view === 'search'}
       <div class="d-flex justify-content-center mt-5">
         <button
           class="btn btn-orange"
@@ -326,8 +392,33 @@
     display: none;
   }
 
+  .result span.selected {
+    display: none;
+  }
+  .result.highlight span.selected {
+    display: block;
+    float: right;
+    color: rgb(250, 148, 14);
+    font-weight: 900;
+  }
+
   .result .coords {
     display: none;
+  }
+
+  .result button {
+    display: none;
+  }
+
+  .result.highlight button {
+    margin: 10px auto;
+    display: block;
+    max-width: 10em;
+    padding: 1px;
+    background-color: white;
+  }
+  .result.highlight button:hover {
+    color: #111;
   }
 
   .noresults {
@@ -371,7 +462,7 @@
   .btn-orange {
     background-color: rgb(253, 160, 15);
   }
-  .btn-orange:hover{
+  .btn-orange:hover {
     background-color: rgb(250, 148, 14);
   }
 </style>

@@ -35,7 +35,8 @@
       limit: search_params.get('limit'),
       polygon_threshold: search_params.get('polygon_threshold'),
       exclude_place_ids: search_params.get('exclude_place_ids'),
-      format: 'jsonv2'
+      addressdetails: 1,
+      format: 'geocodejson'
     };
 
     let anyStructuredFieldsSet = api_request_params.street
@@ -47,7 +48,7 @@
 
     if (api_request_params.q || anyStructuredFieldsSet) {
       fetch_from_api('search', api_request_params, function (data) {
-        results_store.set(data);
+        results_store.set(data.features ? data.features : data);
 
         update_html_title('Result for ' + api_request_params.q);
 

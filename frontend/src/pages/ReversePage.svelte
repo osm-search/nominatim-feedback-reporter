@@ -11,7 +11,6 @@
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
 
-
   let api_request_params;
   let current_result;
   let position_marker; // what the user searched for
@@ -28,15 +27,23 @@
         search_params.get('zoom') > 1
           ? Number(search_params.get('zoom'))
           : Number(Nominatim_Config.Reverse_Default_Search_Zoom),
-      format: 'jsonv2',
-      polygon_geojson: 1
+      polygon_geojson: 1,
+      addressdetails: 1,
+      format: 'geocodejson'
     };
 
     if (api_request_params.lat || api_request_params.lat) {
       fetch_from_api('reverse', api_request_params, async function (data) {
         if (data && !data.error) {
-          let all_data = [data];
-          let revese_osm_type_id = formatOSMTypeId(data.osm_type, data.osm_id);
+          let all_data = data.features ? data.features : data;
+          let revese_osm_type_id = formatOSMTypeId(
+            data.features
+              ? data.features[0].properties.geocoding.osm_type
+              : data.osm_type,
+            data.features
+              ? data.features[0].properties.geocoding.osm_id
+              : data.osm_id
+          );
           if (api_request_params.zoom > 13 && view !== 'reverse') {
             let osm_ids = [];
             position_marker = [api_request_params.lat, api_request_params.lon];
@@ -57,9 +64,16 @@
             }
             await fetch_from_api(
               'lookup',
-              { format: 'json', osm_ids: osm_ids.join(), polygon_geojson: 1 },
+              {
+                format: 'geocodejson',
+                osm_ids: osm_ids.join(),
+                polygon_geojson: 1,
+                addressdetails: 1
+              },
               async function (lookup_data) {
-                all_data = all_data.concat(lookup_data);
+                all_data = all_data.concat(
+                  lookup_data.features ? lookup_data.features : lookup_data
+                );
               }
             );
           }

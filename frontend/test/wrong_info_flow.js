@@ -77,7 +77,7 @@ describe('Wrong Information Flow', function () {
             let results = await page.$$('#searchresults .result');
             await results[1].click();
             // await page.click('div.d-flex .btn.btn-primary');
-            await page.evaluate(() => document.querySelector('div.d-flex .btn.btn-primary').click());
+            await page.evaluate(() => document.querySelectorAll('.result button')[1].click());
             await page.waitForSelector('table');
             let current_url = new URL(await page.url());
             assert.deepStrictEqual(current_url.pathname, '/verifyedit.html');
@@ -93,6 +93,11 @@ describe('Wrong Information Flow', function () {
             );
             await page.type('.form-group textarea', 'Thanks');
             await page.evaluate(() => document.querySelector('button.btn').click());
+            await page.waitForSelector('table');
+            current_url = new URL(await page.url());
+            assert.deepStrictEqual(current_url.pathname, '/review.html');
+            await page.waitForSelector('td input');
+            await page.evaluate(() => document.querySelector('.d-grid button').click());
             await page.waitForSelector('#thank-you');
             current_url = new URL(await page.url());
             assert.deepStrictEqual(current_url.pathname, '/thankyou.html');
@@ -188,7 +193,7 @@ describe('Wrong Information Flow', function () {
 
             let results = await page.$$('#searchresults .result');
             await results[1].click();
-            await page.click('div.d-flex .btn.btn-primary');
+            await page.evaluate(() => document.querySelectorAll('.result button')[1].click());
             await page.waitForSelector('table');
             let current_url = new URL(await page.url());
             assert.deepStrictEqual(current_url.pathname, '/verifyedit.html');
@@ -206,6 +211,11 @@ describe('Wrong Information Flow', function () {
             //   console.log(localStorage);
             await page.type('.form-group textarea', 'Thanks');
             await page.evaluate(() => document.querySelector('button.btn').click());
+            await page.waitForSelector('table');
+            current_url = new URL(await page.url());
+            assert.deepStrictEqual(current_url.pathname, '/review.html');
+            await page.waitForSelector('td input');
+            await page.evaluate(() => document.querySelector('.d-grid button').click());
             await page.waitForSelector('#thank-you');
             current_url = new URL(await page.url());
             assert.deepStrictEqual(current_url.pathname, '/thankyou.html');
@@ -305,6 +315,11 @@ describe('Wrong Information Flow', function () {
             //   console.log(localStorage);
             await page.type('.form-group textarea', 'Thanks');
             await page.evaluate(() => document.querySelector('button.btn').click());
+            await page.waitForSelector('table');
+            current_url = new URL(await page.url());
+            assert.deepStrictEqual(current_url.pathname, '/review.html');
+            await page.waitForSelector('td input');
+            await page.evaluate(() => document.querySelector('.d-grid button').click());
             await page.waitForSelector('#thank-you');
             current_url = new URL(await page.url());
             assert.deepStrictEqual(current_url.pathname, '/thankyou.html');

@@ -48,7 +48,7 @@ function osmLink(aPlace) {
 }
 
 function formatLabel(aPlace) {
-  if (aPlace.label) return aPlace.label;
+  // if (aPlace.label) return aPlace.label;
 
   function capitalize(s) {
     return s && s[0].toUpperCase() + s.slice(1);
@@ -178,7 +178,9 @@ function geocodingProperties() {
     'district',
     'county',
     'state',
-    'country'
+    'country',
+    'lat',
+    'lon'
   ];
   return properties;
 }

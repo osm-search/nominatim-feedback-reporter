@@ -18,6 +18,7 @@
   import ThankYouPage from './pages/ThankYouPage.svelte';
   import HomePage from './pages/HomePage.svelte';
   import DetailsPage from './pages/DetailsPage.svelte';
+  import ReviewPage from './pages/ReviewPage.svelte';
 
   $: view = $page.tab;
   $: {
@@ -56,6 +57,8 @@
   <ReversePage />
 {:else if view === 'bugdescription'}
   <BugDescriptionPage />
+{:else if view === 'review'}
+  <ReviewPage />
 {:else if view === 'thankyou'}
   <ThankYouPage />
 {:else if view === 'verifyedit'}
