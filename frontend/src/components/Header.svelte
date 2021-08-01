@@ -2,11 +2,12 @@
   import PageLink from './PageLink.svelte';
   import Section from './Section.svelte';
   import ReverseLink from './ReverseLink.svelte';
-
-  import { map_store, page } from '../lib/stores.js';
+  import Loader from './Loader.svelte';
+  import { map_store, page, loader_count_store } from '../lib/stores.js';
 
   $: view = $page.tab;
   $: page_title = Nominatim_Config.Page_Title;
+
   let map_lat;
   let map_lon;
   map_store.subscribe((map) => {
@@ -16,6 +17,18 @@
       map_lon = map.getCenter().lng;
     });
   });
+
+  loader_count_store.subscribe(value => {
+
+    var loading_el = document.getElementById('loading');
+    if (!loading_el) return; // might not be on page yet
+
+    if (value > 0) {
+      loading_el.style.display = 'block';
+    } else {
+      loading_el.style.display = 'none';
+    }
+});
 </script>
 
 <Section section_type="update" />
@@ -89,6 +102,7 @@
 <section class="search-section">
   <slot />
 </section>
+<Loader />
 <Section section_type="error" />
 <Section section_type="help" />
 

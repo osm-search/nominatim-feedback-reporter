@@ -13,7 +13,6 @@
   let current_geocodeing_details;
   let new_geocodeing_details;
   let api_request_params;
-  let api_request_finished = false;
   let newLocation;
   let oldLocation;
 
@@ -24,13 +23,11 @@
       + search_params.get('osmid'),
       format: 'geocodejson'
     };
-    api_request_finished = false;
 
     if (api_request_params.osm_ids) {
       update_html_title('Details for ' + api_request_params.osm_ids);
 
       fetch_from_api('lookup', api_request_params, function (data) {
-        api_request_finished = true;
         location_details = data && !data.error ? data : undefined;
         current_geocodeing_details = location_details.features[0].properties.geocoding;
         new_geocodeing_details = Object.assign(

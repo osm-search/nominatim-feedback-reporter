@@ -244,7 +244,7 @@
             class="btn btn-outline-secondary btn-sm"
             on:click|preventDefault|stopPropagation={handleSubmit}
           >
-            Select this option</button
+            Select this result</button
           >
         {/if}
       </div>

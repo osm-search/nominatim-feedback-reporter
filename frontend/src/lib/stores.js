@@ -7,6 +7,8 @@ export const error_store = writable();
 export const help_text_store = writable();
 export const updates_store = writable();
 export const page = writable();
+export const loader_count_store = writable(0);
+
 
 /**
  * Update the global page state.

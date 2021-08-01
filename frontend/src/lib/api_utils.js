@@ -1,11 +1,15 @@
-import { last_api_request_url_store, error_store } from './stores.js';
+import { last_api_request_url_store, error_store, loader_count_store } from './stores.js';
 import { getSetObjectBugData } from './helpers';
 
-function api_request_progress(status) {
-  var loading_el = document.getElementById('loading');
-  if (!loading_el) return; // might not be on page yet
 
-  loading_el.style.display = (status === 'start') ? 'block' : null;
+function api_request_progress(status) {
+
+  if (status === 'start') {
+    loader_count_store.update(n => n + 1);
+  } else {
+    loader_count_store.update(n => n - 1);
+  }
+
 }
 
 export async function fetch_from_api(endpoint_name, params, callback) {
@@ -93,6 +97,7 @@ export function update_html_title(title) {
 export async function fetch_from_overpass_api(radius, lat, lon, callback) {
   let query = generate_overpass_query(radius, lat, lon);
   let api_url = Nominatim_Config.Overpass_API_Endpoint + 'interpreter?data=' + query;
+  api_request_progress('start');
   try {
     await fetch(api_url)
       .then(response => response.json())
@@ -101,9 +106,13 @@ export async function fetch_from_overpass_api(radius, lat, lon, callback) {
           error_store.set(data.error.message);
         }
         callback(data);
+        api_request_progress('end');
+
       });
   } catch (error) {
     error_store.set(`Error fetching data from ${api_url} (${error})`);
+    api_request_progress('end');
+
   }
 }
 
