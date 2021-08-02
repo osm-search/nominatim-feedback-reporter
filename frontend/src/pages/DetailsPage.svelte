@@ -55,7 +55,7 @@
 
   $: {
     let pageinfo = $page;
-    if (pageinfo.tab === 'details') {
+    if (pageinfo.tab.includes('details')) {
       loaddata(pageinfo.params);
     }
   }

@@ -1,6 +1,9 @@
 <script>
-  import { refresh_page } from '../lib/stores.js';
+  import { refresh_page, page } from '../lib/stores.js';
   export let api_request_params = {};
+
+  $: view = $page.tab;
+
   function handleFormSubmit(event) {
     let form_el = event.target;
     let val = form_el.querySelector('input[type=edit]').value.trim();
@@ -16,7 +19,7 @@
       alert('invalid input');
       return;
     }
-    refresh_page('details', params);
+    refresh_page(view, params);
   }
 </script>
 

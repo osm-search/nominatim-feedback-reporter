@@ -35,7 +35,7 @@
   <SearchPage />
 {:else if view === 'reverse'}
   <ReversePage />
-{:else if view === 'details'}
+{:else if view.includes('details')}
   <DetailsPage />
 {:else if view === 'home'}
   <HomePage />

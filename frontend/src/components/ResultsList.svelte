@@ -18,7 +18,6 @@
   $: params = $page.params;
   $: view = $page.tab;
 
-  let searchByIdText;
   let aSearchResults;
   let iHighlightNum;
   let sMoreURL;
@@ -149,26 +148,22 @@
               ? current_result.properties.geocoding.osm_id
               : current_result.osm_id
           );
-        } else {
-          let val = searchByIdText;
-          let type_and_id_match = val.match(/^\s*([NWR])(\d+)\s*$/i)
-          || val.match(/\/(relation|way|node)\/(\d+)\s*$/);
-          if (type_and_id_match) {
-            newEntries.correct_osm_object = type_and_id_match[1].charAt(0).toUpperCase()
-            + type_and_id_match[2];
-          } else {
-            alert('invalid input');
-          }
         }
 
         if (getBugData().correct_osm_object === -1) {
           delete newEntries.query_type;
         }
 
-        getSetObjectBugData(newEntries);
+        if (iHighlightNum < 0) {
+          getSetObjectBugData(newEntries);
 
-        refresh_page('bugdescription');
-      } else if (view.includes('search')) {
+          refresh_page('wrongresultdetails');
+        } else {
+          getSetObjectBugData(newEntries);
+
+          refresh_page('bugdescription');
+        }
+      } else if (view.includes('search') || view.includes('wrongresultdetails')) {
         let newEntries = {};
 
         // if (params.get('q') != null) {
@@ -270,15 +265,15 @@
       >
         <div class="row g-1 justify-content-center">
           <div class="col-auto">
-            <input
+            <!-- <input
               bind:value={searchByIdText}
               type="edit"
               class="form-control form-control-sm me-1"
               pattern="^[NWRnwr]?[0-9]+$|.*openstreetmap.*"
               placeholder="Search by Id or Nominatim URL"
-            />
+            /> -->
             <button
-              class="btn btn-outline-secondary btn-sm"
+              class="btn btn-outline-secondary btn-sm searchbyid"
               on:click|preventDefault|stopPropagation={handleNoneOfAbove}
               >Use searchById</button
             >
@@ -412,6 +407,10 @@
 
   .result button {
     display: none;
+  }
+
+  .result button.searchbyid {
+    display: block;
   }
 
   .result.highlight button {

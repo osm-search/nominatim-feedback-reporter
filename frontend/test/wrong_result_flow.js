@@ -173,6 +173,7 @@ describe('Wrong Result Flow', function () {
           });
 
           it('should get more than 1 results', async function () {
+            await page.$$('#searchresults .result');
             let results_count = await page.$$eval(
               '#searchresults .result',
               (elements) => elements.length
@@ -184,8 +185,8 @@ describe('Wrong Result Flow', function () {
             await page.waitForSelector('#searchresults', { timeout: 0 });
 
             let results = await page.$$('#searchresults .result');
-            await results[1].click();
-            await page.evaluate(() => document.querySelectorAll('.result button')[1].click());
+            await results[0].click();
+            await page.evaluate(() => document.querySelectorAll('.result button')[0].click());
             await page.waitForSelector('.row.mb-4.mt-4 h2', { timeout: 0 });
             let current_url = new URL(await page.url());
             assert.deepStrictEqual(

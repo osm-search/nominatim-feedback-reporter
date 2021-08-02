@@ -35,6 +35,7 @@ const pagenames = [
   'wronginforeverse',
   'wrongresultsearch',
   'wrongresultreverse',
+  'wrongresultdetails',
   'verifyedit',
   'bugdescription',
   'review',
