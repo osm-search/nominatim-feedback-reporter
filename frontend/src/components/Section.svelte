@@ -2,7 +2,8 @@
   import {
     error_store,
     updates_store,
-    help_text_store
+    help_text_store,
+    page
   } from '../lib/stores.js';
 
   export let section_type;
@@ -10,6 +11,8 @@
   let error_message;
   let update_message;
   let help_message;
+
+  $: view = $page.tab;
 
   error_store.subscribe((text) => {
     error_message = text;
@@ -28,7 +31,7 @@
   }
 </script>
 
-{#if section_type === 'error' && error_message}
+{#if section_type === 'error' && error_message && !view.includes('verifyedit')}
   <div id="error" class="container-fluid alert-danger py-3 px-4">
     {error_message}
     <button

@@ -100,68 +100,76 @@
     <h2>Verify and Edit Location Details</h2>
   </div>
   <div class="container mt-5">
-    <table class="table table-striped ">
-      <thead>
-        <tr>
-          <th scope="col">Field</th>
-          <th scope="col">Value</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#if new_geocodeing_details}
-          {#each Object.entries(new_geocodeing_details) as [key, value]}
-            {#if geocodingProperties().includes(key)}
-              <tr>
-                <td>{key}</td>
-                <td>
+    {#if new_geocodeing_details}
+      <table class="table table-striped ">
+        <thead>
+          <tr>
+            <th scope="col">Field</th>
+            <th scope="col">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#if new_geocodeing_details}
+            {#each Object.entries(new_geocodeing_details) as [key, value]}
+              {#if geocodingProperties().includes(key)}
+                <tr>
+                  <td>{key}</td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter {key}"
+                      bind:value={new_geocodeing_details[String(key)]}
+                    />
+                  </td>
+                </tr>
+              {/if}
+            {/each}
+            <tr>
+              <td>Location</td>
+              <td>
+                <div class="input-group">
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Enter {key}"
-                    bind:value={new_geocodeing_details[String(key)]}
+                    placeholder="Enter Latitude"
+                    bind:value={newLocation.lat}
                   />
-                </td>
-              </tr>
-            {/if}
-          {/each}
-          <tr>
-            <td>Location</td>
-            <td>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter Latitude"
-                  bind:value={newLocation.lat}
-                />
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter Longitude"
-                  bind:value={newLocation.lng}
-                />
-                <button
-                  class="btn btn-outline-secondary"
-                  type="button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#MapModal">Open Map</button
-                >
-              </div>
-            </td>
-          </tr>
-        {/if}
-      </tbody>
-    </table>
-    <MapModal bind:newLocation />
-    <div class="d-grid gap-2">
-      <button
-        type="button"
-        class="btn btn-success btn-lg mt-3"
-        on:click|preventDefault|stopPropagation={handleSubmit}
-      >
-        Verified and edited details
-      </button>
-    </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Longitude"
+                    bind:value={newLocation.lng}
+                  />
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#MapModal">Open Map</button
+                  >
+                </div>
+              </td>
+            </tr>
+          {/if}
+        </tbody>
+      </table>
+      <MapModal bind:newLocation />
+      <div class="d-grid gap-2">
+        <button
+          type="button"
+          class="btn btn-success btn-lg mt-3"
+          on:click|preventDefault|stopPropagation={handleSubmit}
+        >
+          Verified and edited details
+        </button>
+      </div>
+    {:else}
+      <h3 class="text-center m-5">
+        Sorry, we only allow some fields to be corrected and none of those can
+        be found
+      </h3>
+    {/if}
+
     <!-- <div class="float-end mt-4">
       <button
         class="btn btn-success btn-lg mt-3"
