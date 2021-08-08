@@ -41,17 +41,6 @@
   }
 </script>
 
-<!-- <div class="d-grid gap-2">
-  <button
-    type="button"
-    class="btn btn-primary btn-lg mt-3"
-    data-bs-toggle="modal"
-    data-bs-target="#MapModal"
-  >
-    Update Location
-  </button>
-</div> -->
-
 <div
   class="modal fade"
   id="MapModal"

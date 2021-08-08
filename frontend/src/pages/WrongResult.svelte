@@ -5,13 +5,8 @@
   import Header from '../components/Header.svelte';
   import WelcomeBtn from '../components/WelcomeBtn.svelte';
 
-  // let aStatusData = {};
-  // let configuration = Nominatim_Config;
-
   function loaddata() {
-    // fetch_from_api('status', { format: 'json' }, function (data) {
-    //   aStatusData = data;
-    // });
+  
     update_html_title('selecttype');
   }
   onMount(loaddata);

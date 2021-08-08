@@ -12,7 +12,6 @@
     update_html_title('selecttype');
     let bugData = getBugData();
     query_type = bugData.query_type;
-    // localStorage.clear('bug_data');
   }
   onMount(loaddata);
 </script>

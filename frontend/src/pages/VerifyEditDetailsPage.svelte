@@ -169,13 +169,5 @@
         be found
       </h3>
     {/if}
-
-    <!-- <div class="float-end mt-4">
-      <button
-        class="btn btn-success btn-lg mt-3"
-        on:click|preventDefault|stopPropagation={handleSubmit}
-        >Verified and edited details</button
-      >
-    </div> -->
   </div>
 </div>

@@ -10,7 +10,6 @@
   import { page } from '../lib/stores.js';
 
   import Welcome from './Welcome.svelte';
-  // import MapIcon from './MapIcon.svelte';
 
   export let reverse_search = false;
   export let current_result = null;
@@ -132,12 +131,6 @@
     } else if (view.includes('result') || view.includes('wrongordersearch')) {
       if (view.includes('reverse')) {
         let newEntries = {};
-        // let newEntries = {
-        //   query_type: 'reverse_search',
-        //   lat: params.get('lat'),
-        //   lon: params.get('lon'),
-        //   zoom: params.get('zoom')
-        // };
 
         if (iHighlightNum >= 0) {
           newEntries.correct_osm_object = formatOSMTypeId(
@@ -165,20 +158,6 @@
         }
       } else if (view.includes('search') || view.includes('wrongresultdetails')) {
         let newEntries = {};
-
-        // if (params.get('q') != null) {
-        //   newEntries = {
-        //     query_type: 'simple_search',
-        //     query: params.get('q')
-        //   };
-        //   newEntries.extra_params = Object.fromEntries(params);
-        //   delete newEntries.extra_params.q;
-        // } else {
-        //   newEntries = {
-        //     query_type: 'structured_search',
-        //     structured_query: Object.fromEntries(params)
-        //   };
-        // }
 
         if (iHighlightNum >= 0) {
           newEntries.correct_osm_object = formatOSMTypeId(
@@ -217,9 +196,7 @@
         data-position={iResNum}
         on:click|stopPropagation={handleClick}
       >
-        <!-- <div style="float:right">
-          <MapIcon aPlace={aResult} />
-        </div> -->
+
         <span class="name"
           >{aResult.properties.geocoding
             ? aResult.properties.geocoding.label
@@ -265,13 +242,7 @@
       >
         <div class="row g-1 justify-content-center">
           <div class="col-auto">
-            <!-- <input
-              bind:value={searchByIdText}
-              type="edit"
-              class="form-control form-control-sm me-1"
-              pattern="^[NWRnwr]?[0-9]+$|.*openstreetmap.*"
-              placeholder="Search by Id or Nominatim URL"
-            /> -->
+
             <button
               class="btn btn-outline-secondary btn-sm searchbyid"
               on:click|preventDefault|stopPropagation={handleNoneOfAbove}
@@ -332,13 +303,7 @@
         >None of above</button
       >
     </div>
-    <!-- <div class="d-flex justify-content-center mt-5">
-      <button
-        class="btn btn-primary"
-        on:click|preventDefault|stopPropagation={handleSubmit}
-        >Proceed With selected option</button
-      >
-    </div> -->
+
   {:else}
     <div class="noresults">No search results found</div>
     {#if view === 'details' || view === 'search'}
