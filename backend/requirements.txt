@@ -2,6 +2,7 @@ attrs==21.2.0
 falcon==3.0.1
 gunicorn==20.1.0
 iniconfig==1.1.1
+logger==1.4
 packaging==20.9
 pluggy==0.13.1
 py==1.10.0

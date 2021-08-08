@@ -2,6 +2,7 @@ import csv
 import os
 import yaml
 from dotenv import load_dotenv
+from logger import logger
 
 load_dotenv()
 
@@ -61,6 +62,7 @@ def export_wrong_simple_search_result(arr, filename):
 
 # Current geocode tester does not support nominatim structured search
 def export_wrong_structured_search_result(arr, filename):
+    logger.warning('Wrong structured search feedback is not supported by geocode-tester')
     pass
 
 
@@ -120,6 +122,7 @@ def export_wrong_order(arr, filename):
 
 # Currently geocode tester does not support lookup api of nominatim
 def export_wrong_information(arr, filename):
+    logger.warning('Wrong information feedback is not supported by geocode-tester')
     pass
 
 
