@@ -28,6 +28,7 @@
 </script>
 
 <!-- deal with back-button and other user action -->
+<!-- Handles routing of the website  -->
 <svelte:window on:popstate={() => refresh_page()} />
 {#if view === 'selecttype'}
   <SelectProblemPage />

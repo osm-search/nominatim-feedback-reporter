@@ -21,6 +21,7 @@
   <div class="row mb-4 mt-4">
     <h2>Select the kind of problem</h2>
   </div>
+  <!-- Has buttons that set are present in selecttypr page -->
   <div class="container">
     {#if query_type && (query_type.includes('search') || query_type.includes('reverse'))}
       <WelcomeBtn

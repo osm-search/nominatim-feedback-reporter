@@ -48,7 +48,7 @@
     parsed_url.set('exclude_place_ids', aExcludePlaceIds.join(','));
     sMoreURL = '?' + parsed_url.toString();
   });
-
+// Sets the current result to the clicked result.
   function handleClick(e) {
     let result_el = e.target;
     if (!result_el.className.match('result')) {
@@ -60,17 +60,20 @@
     iHighlightNum = pos;
   }
 
+// Handles click on none of above button.
   function handleSearchByIdClick() {
     current_result = null;
     iHighlightNum = -1;
   }
 
+  // Handles seacrchById click.
   function handleNoneOfAbove() {
     current_result = null;
     iHighlightNum = -1;
     handleSubmit();
   }
 
+  // Handles submit.
   function handleWantToReportFeedback() {
     let newEntries = {};
 
@@ -106,6 +109,7 @@
     refresh_page('selecttype');
   }
 
+  // Handles final click and page redirection on selecting result.
   function handleSubmit() {
     console.log('Proceed With selected option CLICKED');
     let url_params = new URLSearchParams();

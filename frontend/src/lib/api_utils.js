@@ -94,6 +94,7 @@ export function update_html_title(title) {
     .join(' | ');
 }
 
+// Fetcges overpass data for given radius and coordinates from query
 export async function fetch_from_overpass_api(radius, lat, lon, callback) {
   let query = generate_overpass_query(radius, lat, lon);
   let api_url = Nominatim_Config.Overpass_API_Endpoint + 'interpreter?data=' + query;
@@ -116,6 +117,7 @@ export async function fetch_from_overpass_api(radius, lat, lon, callback) {
   }
 }
 
+// Generates overpass query for given radius and coordinates
 function generate_overpass_query(radius, lat, lon) {
   let query = `
   [out:json];
@@ -129,6 +131,7 @@ function generate_overpass_query(radius, lat, lon) {
   return query;
 }
 
+// Handles setting final bug data entry for sending report.
 export async function setExtraBugData() {
   await fetch_from_api('status', { format: 'json' }, function (data) {
     let statusData = data;

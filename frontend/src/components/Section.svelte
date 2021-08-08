@@ -30,7 +30,7 @@
     error_store.set(null);
   }
 </script>
-
+<!-- Handles sections of the page for error handling, help_texts and adding some news about thee page -->
 {#if section_type === 'error' && error_message && !view.includes('verifyedit')}
   <div id="error" class="container-fluid alert-danger py-3 px-4">
     {error_message}

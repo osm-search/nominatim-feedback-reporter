@@ -9,9 +9,11 @@
   function handleClick() {
     let bugData;
     if (feedbackType) {
+      // If button has feedbackType, then it is stored in loacalStorage.
       bugData = getSetBugData('feedback_type', feedbackType);
     }
     if (redirect) {
+      // Depending on th query_type and redirect_type we will redirect to next page.
       let jsonParams = JSON.parse(localStorage.getItem('params'));
       let url_params = new URLSearchParams(jsonParams);
       if (jsonParams && redirect !== 'bugdescription') {

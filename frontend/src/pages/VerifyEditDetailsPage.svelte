@@ -160,7 +160,7 @@
           class="btn btn-success btn-lg mt-3"
           on:click|preventDefault|stopPropagation={handleSubmit}
         >
-          Verified and edited details
+          Submit my verified details
         </button>
       </div>
     {:else}

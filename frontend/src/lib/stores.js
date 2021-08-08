@@ -42,6 +42,7 @@ const pagenames = [
   'thankyou'
 ];
 
+// Hanle the page state for redirection
 export function refresh_page(pagename, params) {
   if (typeof pagename === 'undefined') {
     pagename = window.location.pathname

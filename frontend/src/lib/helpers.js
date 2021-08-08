@@ -185,6 +185,7 @@ function geocodingProperties() {
   return properties;
 }
 
+// Handles get set data to localStorage use key value pairs
 function getSetBugData(key, value) {
   let bug_data = getBugData();
   bug_data[key] = value;
@@ -193,6 +194,7 @@ function getSetBugData(key, value) {
   return JSON.parse(localStorage.getItem('bug_data'));
 }
 
+// Handles get set data to localStorage using objects
 function getSetObjectBugData(data) {
   let bug_data = getBugData();
   bug_data = Object.assign(bug_data, data);
@@ -201,6 +203,7 @@ function getSetObjectBugData(data) {
   return JSON.parse(localStorage.getItem('bug_data'));
 }
 
+// Handles get data from localStorage
 function getBugData() {
   if (localStorage.getItem('bug_data')) {
     return JSON.parse(localStorage.getItem('bug_data'));
