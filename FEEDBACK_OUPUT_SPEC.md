@@ -91,6 +91,49 @@ files described here are not exclusive.
 # REQUIRED except with simple feedback. It is the selected OSM object for different feedback_type.
   correct_osm_object: N5362931045
 
+# REQUIRED except with simple feedback. It is the selected OSM object data for different feedback_type.
+  selected_osm_data:
+    geometry:
+      coordinates:
+      - - - 78.0405514
+          - 27.1744549
+        - - 78.0405743
+          - 27.1704168
+        - - 78.042188
+          - 27.1704165
+        - - 78.0437187
+          - 27.1704242
+        - - 78.0436765
+          - 27.1711276
+        - - 78.0436603
+          - 27.1716872
+        - - 78.0436706
+          - 27.1744642
+        - - 78.0405514
+          - 27.1744549
+      type: Polygon
+    properties:
+      geocoding:
+        admin:
+          level4: Uttar Pradesh
+          level5: Agra
+          level6: Agra
+        city: Agra
+        country: India
+        county: Agra
+        district: Taj Ganj
+        label: Taj Mahal Garden, Taj Mahal Internal Path, Taj Ganj, Agra, Uttar Pradesh,
+          282006, India
+        name: Taj Mahal Garden
+        osm_id: 27044943
+        osm_type: way
+        place_id: 97281809
+        postcode: '282006'
+        state: Uttar Pradesh
+        street: Taj Mahal Internal Path
+        type: attraction
+    type: Feature
+
 # OPTIONAL execpt with simple feedback.
   final_bug_description: Random text
 
@@ -113,6 +156,35 @@ files described here are not exclusive.
 ```yaml
 # Wrong Result
 - correct_osm_object: N245753718
+  selected_osm_data:
+    geometry:
+      coordinates:
+      - - - 78.0405514
+          - 27.1744549
+        - - 78.0405743
+          - 27.1704168
+        - - 78.042188
+          - 27.1704165
+        - - 78.0437187
+          - 27.1704242
+        - - 78.0436765
+          - 27.1711276
+        - - 78.0436603
+          - 27.1716872
+        - - 78.0436706
+          - 27.1744642
+        - - 78.0405514
+          - 27.1744549
+      type: Polygon
+    properties:
+      geocoding:
+        osm_id: 27044943
+        osm_type: way
+        place_id: 97281809
+        postcode: '282006'
+        state: Uttar Pradesh
+        type: attraction
+    type: Feature
   feedback_type: WR
   nominatim_database_timestamp: '2021-07-20T04:40:11+00:00'
   nominatim_database_version: 3.7.0-2
@@ -123,6 +195,33 @@ files described here are not exclusive.
 
 # Wrong Information
 - correct_osm_object: N7721349065
+  selected_osm_data:
+    geometry:
+      coordinates:
+      - - - 78.0405514
+          - 27.1744549
+        - - 78.0405743
+          - 27.1704168
+        - - 78.042188
+          - 27.1704165
+        - - 78.0437187
+          - 27.1704242
+        - - 78.0436765
+          - 27.1711276
+        - - 78.0436603
+          - 27.1716872
+        - - 78.0436706
+          - 27.1744642
+        - - 78.0405514
+          - 27.1744549
+      type: Polygon
+    properties:
+      geocoding:
+        osm_id: 27044943
+        osm_type: way
+        place_id: 97281809
+        postcode: '282006'
+    type: Feature
   feedback_type: WI
   name:
     current: Déli
@@ -136,6 +235,35 @@ files described here are not exclusive.
 
 # Wrong Order
 - correct_osm_object: R10330977
+  selected_osm_data:
+    geometry:
+      coordinates:
+      - - - 78.0405514
+          - 27.1744549
+        - - 78.0405743
+          - 27.1704168
+        - - 78.042188
+          - 27.1704165
+        - - 78.0437187
+          - 27.1704242
+        - - 78.0436765
+          - 27.1711276
+        - - 78.0436603
+          - 27.1716872
+        - - 78.0436706
+          - 27.1744642
+        - - 78.0405514
+          - 27.1744549
+      type: Polygon
+    properties:
+      geocoding:
+        osm_id: 27044943
+        osm_type: way
+        place_id: 97281809
+        postcode: '282006'
+        state: Uttar Pradesh
+        type: attraction
+    type: Feature
   extra_params:
     exclude_place_ids: 409784,260941,344288
   feedback_type: WO
