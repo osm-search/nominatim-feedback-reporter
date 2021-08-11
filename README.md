@@ -9,6 +9,9 @@ from a separate Nominatim API running on http://localhost:80/nominatim/ and Nomi
 For technical background, how to develop and create a release see [CONTRIBUTE.md](CONTRIBUTE.md) file at [https://github.com/darkshredder/nominatim-feedback-reporter/](https://github.com/darkshredder/nominatim-feedback-reporter).
 
 
+![Screenshot](screenshot.png)
+
+
 ## Starting the frontend
 
 You can either
