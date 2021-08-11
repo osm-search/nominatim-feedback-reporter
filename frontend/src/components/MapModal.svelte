@@ -17,6 +17,10 @@
       map_store.subscribe((map) => {
         if (!map) return;
         map.invalidateSize();
+        if (!marker && newLocation.lat && newLocation.lng) {
+          marker = L.marker([newLocation.lat, newLocation.lng]);
+          marker.addTo(map);
+        }
       });
     });
   });
