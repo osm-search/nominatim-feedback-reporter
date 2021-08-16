@@ -1,7 +1,7 @@
 import { last_api_request_url_store, error_store, loader_count_store } from './stores.js';
 import { getSetObjectBugData } from './helpers';
 
-
+// Helper function to start or end api request and increase loader count
 function api_request_progress(status) {
 
   if (status === 'start') {
@@ -12,6 +12,7 @@ function api_request_progress(status) {
 
 }
 
+// Fetch nominatim data using endpoint, params and callback. Start's a loader in between
 export async function fetch_from_api(endpoint_name, params, callback) {
   var api_url = generate_nominatim_api_url(endpoint_name, params);
 
@@ -37,6 +38,8 @@ export async function fetch_from_api(endpoint_name, params, callback) {
 }
 
 var fetch_content_cache = {};
+
+// Injects html to and element from a url.
 export async function fetch_content_into_element(url, dom_element) {
   if (!window.location.protocol.match(/^http/)) {
     dom_element.innerHTML = `Cannot display data from ${url} here. `
@@ -61,6 +64,7 @@ export async function fetch_content_into_element(url, dom_element) {
   }
 }
 
+// Generates nominatim api url based on endpoint and parameters
 function generate_nominatim_api_url(endpoint_name, params) {
   extend_parameters(params, Nominatim_Config.Nominatim_API_Endpoint_Params);
   return Nominatim_Config.Nominatim_API_Endpoint + endpoint_name + '.php?'
@@ -69,6 +73,7 @@ function generate_nominatim_api_url(endpoint_name, params) {
          }).join('&');
 }
 
+// Extends parameters with default values
 function extend_parameters(params, params2) {
   var param_names = Object.keys(params2);
   for (var i = 0; i < param_names.length; i += 1) {
@@ -76,6 +81,7 @@ function extend_parameters(params, params2) {
   }
 }
 
+// Removes all parameters without values
 function clean_up_parameters(params) {
   // `&a=&b=&c=1` => '&c=1'
   var param_names = Object.keys(params);
@@ -88,13 +94,14 @@ function clean_up_parameters(params) {
   return params;
 }
 
+// Updates html title of the page
 export function update_html_title(title) {
   document.title = [title, Nominatim_Config.Page_Title]
     .filter((val) => val && val.length > 1)
     .join(' | ');
 }
 
-// Fetcges overpass data for given radius and coordinates from query
+// Fetch overpass data for given radius and coordinates from query
 export async function fetch_from_overpass_api(radius, lat, lon, callback) {
   let query = generate_overpass_query(radius, lat, lon);
   let api_url = Nominatim_Config.Overpass_API_Endpoint + 'interpreter?data=' + query;
@@ -131,7 +138,7 @@ function generate_overpass_query(radius, lat, lon) {
   return query;
 }
 
-// Handles setting final bug data entry for sending report.
+// Set's database, nominatim version and timestamps to bug report
 export async function setExtraBugData() {
   await fetch_from_api('status', { format: 'json' }, function (data) {
     let statusData = data;

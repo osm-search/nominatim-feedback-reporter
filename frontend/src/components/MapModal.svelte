@@ -13,6 +13,7 @@
   let unsubscribe;
 
   onMount(() => {
+    // Resize map to fit window and set location to current location
     MapModal.addEventListener('shown.bs.modal', function () {
       map_store.subscribe((map) => {
         if (!map) return;
@@ -25,6 +26,7 @@
     });
   });
 
+  // Set map marker to click location
   unsubscribe = map_store.subscribe((map) => {
     if (!map) return;
     map.on('click', function (e) {
@@ -37,9 +39,10 @@
     });
   });
   
-  
+  // Prevents memory leak of map
   onDestroy(unsubscribe);
 
+  // Set map to new clicked location
   function handleUpdateLocation() {
     newLocation = last_click_latlng;
   }

@@ -10,6 +10,8 @@
 
   let map_lat;
   let map_lon;
+
+
   map_store.subscribe((map) => {
     if (!map) return;
     map.on('move', function () {
@@ -102,8 +104,11 @@
 <section class="search-section">
   <slot />
 </section>
+<!-- Toast for loader -->
 <Loader />
+<!-- Toast for showing error -->
 <Section section_type="error" />
+<!-- Toast for help texts -->
 <Section section_type="help" />
 
 <style>

@@ -12,6 +12,7 @@ export let zoom = '';
 
 $: view = $page.tab;
 
+// Handle refresh of page for selected coordinates
 function gotoCoordinates(newlat, newlon, newzoom) {
   if (newlat === null || newlon === null) return;
 
@@ -22,6 +23,7 @@ function gotoCoordinates(newlat, newlon, newzoom) {
   refresh_page(view, params);
 }
 
+// Handle refresh of page for clicked location
 const unsubscribe = map_store.subscribe(map => {
   if (map) {
     map.on('click', (e) => {
@@ -39,6 +41,8 @@ function maybeSplitLatitude(e) {
     document.querySelector('input[name=lon]').value = L.Util.trim(coords_split[1]);
   }
 }
+
+// Handles memory leak of map_store subscription
 onDestroy(unsubscribe);
 
 </script>

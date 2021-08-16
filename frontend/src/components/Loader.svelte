@@ -3,9 +3,11 @@
 
   let last_api_request_url;
 
+  // Storing the last API request URL
   last_api_request_url_store.subscribe((url) => {
     last_api_request_url = url;
   });
+
 </script>
 
 <div id="last-updated" class="container-fluid py-3 px-4">

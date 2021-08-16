@@ -8,8 +8,6 @@
   import Footer from './components/Footer.svelte';
 
   import SelectProblemPage from './pages/SelectProblemPage.svelte';
-  import WrongResult from './pages/WrongResult.svelte';
-  import WrongInfo from './pages/WrongInfo.svelte';
   import AboutPage from './pages/AboutPage.svelte';
   import SearchPage from './pages/SearchPage.svelte';
   import ReversePage from './pages/ReversePage.svelte';
@@ -42,10 +40,6 @@
   <HomePage />
 {:else if view === 'about'}
   <AboutPage />
-{:else if view === 'wrongresult'}
-  <WrongResult />
-{:else if view === 'wronginfo'}
-  <WrongInfo />
 {:else if view === 'wrongordersearch'}
   <SearchPage />
 {:else if view === 'wronginfosearch'}

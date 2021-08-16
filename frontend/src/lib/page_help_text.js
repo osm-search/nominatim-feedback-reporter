@@ -10,10 +10,6 @@ export const helpText = {
     'Can you add a osm_type + osm_id or OSM URL as mentioned in text box for the location where you are facing issues and then select "Want to report a feedback for the result?" after clicking on search button or you can switch tabs by clicking on above navbar links.',
   selecttype:
     'Please select the best possible option for the issue you are facing.',
-  wrongresult:
-    'On this page select the option through which you got wrong result for your query.',
-  wronginfo:
-    'On this page select the option through which you want to search the map data or OSM object.',
   wrongordersearch:
     'So the results are in the wrong order. Can you please point out which one of the results you expect to be in the fist place? Click on "Select this result" after selecting one of the options.',
   wronginfosearch:
